@@ -7,6 +7,7 @@ export default createGlobalStyle`
     box-sizing: border-box;
     outline: none;
     font-family: 'Rajdhani', sans-serif;
+    color: #FFF;
   }
 
   button {

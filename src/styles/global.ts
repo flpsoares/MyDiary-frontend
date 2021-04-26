@@ -6,7 +6,7 @@ export default createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     outline: none;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Exo 2', sans-serif;
     color: var(--text-primary);
   }
 

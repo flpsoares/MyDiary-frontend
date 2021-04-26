@@ -7,18 +7,58 @@ export const Container = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `
 
 export const Title = styled.h1`
-  font-size: 40px;
   cursor: default;
+  margin-top: 100px;
+  margin-bottom: 20px;
 `
 
 export const Box = styled.div`
-  border: 1px solid #753ffc;
+  border-radius: 5px;
+  background: #161b2270;
 
-  width: 500px;
-  height: 60%;
+  width: 400px;
+
+  padding: 25px;
+`
+
+export const AuthButton = styled.button`
+  background: var(--primary);
+  width: 100%;
+  margin-top: 10px;
+
+  font-size: 20px;
+  font-weight: 500;
+
+  border-radius: 5px;
+
+  padding: 10px 0;
+
+  transition: filter .2s;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+`
+
+export const Question = styled.div`
+  margin-top: 10px;
+  font-size: 20px;
+
+  a {
+    margin-left: 4px;
+    font-size: 20px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: color .2s;
+
+    &:hover {
+      color: #FFF;
+    }
+  }
 `

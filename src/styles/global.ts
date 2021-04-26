@@ -7,10 +7,17 @@ export default createGlobalStyle`
     box-sizing: border-box;
     outline: none;
     font-family: 'Rajdhani', sans-serif;
-    color: #FFF;
+    color: var(--text-primary);
   }
 
   button {
     cursor: pointer;
+    border: 0;
+    background: 0;
+  }
+
+  :root {
+    --primary: #753ffc;
+    --text-primary: #c9d1d9;
   }
 `

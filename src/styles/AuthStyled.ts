@@ -49,9 +49,9 @@ export const Question = styled.div`
   font-size: 20px;
 
   a {
-    margin-left: 4px;
+    margin-left: 6px;
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 500;
 
     text-decoration: none;
 

@@ -12,7 +12,6 @@ export const Container = styled.div`
     justify-content: space-between;
 
     button {
-      font-weight: 500;
       font-size: 16px;
 
       transition: color .2s;
@@ -39,7 +38,7 @@ export const Container = styled.div`
     
     font-size: 20px;
 
-    transition: .2s;
+    transition: .1s;
 
     &:focus {
       box-shadow: 0 0 5px var(--primary);

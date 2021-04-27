@@ -5,9 +5,10 @@ export const Container = styled.div`
   flex-direction: column;
 
   margin-bottom: 35px;
+`
 
-  div {
-    display: flex;
+export const Header = styled.div`
+  display: flex;
     align-items: center;
     justify-content: space-between;
 
@@ -20,29 +21,43 @@ export const Container = styled.div`
         color: #FFF;
       }
     }
-  }
+  
 
   span {
-    font-size: 25px;
+    font-size: 20px;
     margin-bottom: 5px;
     font-weight: 500;
   }
+`
+
+export const InputArea = styled.div`
+  border: 2px solid var(--primary);
+  border-radius: 5px;
+  
+  display: flex;
+  justify-content: space-between;
 
   input {
     background: 0;
+    border: 0;
 
-    border: 1px solid var(--primary);
-    border-radius: 5px;
+    width: 100%;
 
     padding: 5px 12px;
     
     font-size: 20px;
+  }
 
-    transition: .1s;
+  button {
+    font-size: 25px;
+    padding-right: 5px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    &:focus {
-      box-shadow: 0 0 5px var(--primary);
-      border: 1px solid #753ffc99;
+    &:hover {
+      filter: brightness(1.2);
     }
   }
 `

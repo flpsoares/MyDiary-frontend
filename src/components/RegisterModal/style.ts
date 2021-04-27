@@ -1,28 +1,45 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+  background: rgba(0, 0, 0, 0.7);
+
   width: 100vw;
   height: 100vh;
-  background: #111;
 
+  position: fixed;
+  
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 `
 
-export const Title = styled.h1`
-  cursor: default;
-  margin-top: 100px;
-  margin-bottom: 20px;
+export const Box = styled.div`
+  width: 500px;
+  /* height: 500px; */
+  border-radius: 5px;
+  background: #161b22;
+  padding: 25px;
+
+  z-index: 2;
+
+  position: relative;
 `
 
-export const Box = styled.div`
-  border-radius: 5px;
-  background: #161b2270;
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 3px;
+  right: 3px;
 
-  width: 400px;
+  font-size: 24px;
 
-  padding: 25px;
+  &:hover {
+    filter: brightness(1.2);
+  }
+`
+
+export const Title = styled.h2`
+  text-align: center;
+  margin-bottom: 20px;
 `
 
 export const AuthButton = styled.button`
@@ -41,24 +58,5 @@ export const AuthButton = styled.button`
 
   &:hover {
     filter: brightness(0.9);
-  }
-`
-
-export const Question = styled.div`
-  margin-top: 10px;
-  font-size: 18px;
-
-  a {
-    margin-left: 6px;
-    font-size: 18px;
-    font-weight: 600;
-
-    text-decoration: none;
-
-    transition: color .2s;
-
-    &:hover {
-      color: #FFF;
-    }
   }
 `

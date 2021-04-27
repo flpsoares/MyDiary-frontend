@@ -1,19 +1,46 @@
-import { Container } from './style'
+import { Container, Header, InputArea } from './style'
+
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import { useState } from 'react'
 
 interface CustomInputProps {
   label: string
+  forgotPassword?: boolean
   isPassword?: boolean
+  icon?: boolean
 }
 
-export const CustomInput: React.FC<CustomInputProps> = ({ label, isPassword }) => {
+const CustomInput: React.FC<CustomInputProps> = ({ label, forgotPassword, isPassword, icon }) => {
+  const [visiblePassword, setVisiblePassword] = useState(false)
+
+  const toggleVisiblePassword = () => {
+    setVisiblePassword(!visiblePassword)
+  }
 
   return (
     <Container>
-      <div>
+      <Header>
         <span>{label}</span>
-        {isPassword && <button>Forgot password?</button>}
-      </div>
-      <input type="text"/>
+        {forgotPassword && <button>Forgot password?</button>}
+      </Header>
+      {
+        isPassword 
+          ? 
+          <InputArea>
+            <input type={visiblePassword ? 'text' : 'password'}/>
+            <button onClick={toggleVisiblePassword}>
+              {
+                visiblePassword 
+                  ? <AiOutlineEye />
+                  : <AiOutlineEyeInvisible />
+              }
+            </button>
+          </InputArea>
+          :
+            <InputArea>
+              <input type="text"/>
+            </InputArea>
+      }
     </Container>
   )
 }

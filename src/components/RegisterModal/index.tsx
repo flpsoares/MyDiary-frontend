@@ -1,14 +1,18 @@
+import { useContext } from 'react'
 import { RiCloseLine } from 'react-icons/ri'
+import { RegisterModalContext } from '../../contexts/RegisterModalContext'
 
 import CustomInput from '../CustomInput'
 import { Container, Box, Title, AuthButton, CloseButton } from './style'
 
 export const RegisterModal: React.FC = () => {
+  const { closeModal } = useContext(RegisterModalContext)
+
   return (
     <Container>
       <Box>
-        <CloseButton>
-          <RiCloseLine color="red" />
+        <CloseButton onClick={closeModal}>
+          <RiCloseLine />
         </CloseButton>
         <Title>Create account on MyDiary</Title>
         <div>

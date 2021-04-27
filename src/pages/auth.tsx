@@ -4,14 +4,18 @@ import { Container, Title, Box, AuthButton, Question } from '../styles/AuthStyle
 
 import CustomInput from '../components/CustomInput'
 import RegisterModal from '../components/RegisterModal'
+import { RegisterModalContext } from '../contexts/RegisterModalContext'
+import { useContext } from 'react'
 
 export const Auth: React.FC = () => {
+  const { openModal, isOpen } = useContext(RegisterModalContext)
+
   return (
     <Container>
       <Head>
         <title>MyDiary | Login</title>
       </Head>
-      <RegisterModal />
+      {isOpen  && <RegisterModal />}
       <Title>Sign In</Title>
       <Box>
         <CustomInput label="Username" />
@@ -19,7 +23,7 @@ export const Auth: React.FC = () => {
         <AuthButton>Sign In</AuthButton>
         <Question>
           <span>New on MyDiary?</span>
-          <a href="">Create account</a>
+          <button onClick={openModal}>Create account</button>
         </Question>
       </Box>
     </Container>

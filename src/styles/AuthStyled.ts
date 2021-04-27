@@ -28,7 +28,7 @@ export const Box = styled.div`
 export const AuthButton = styled.button`
   background: var(--primary);
   width: 100%;
-  margin-top: 10px;
+  margin-top: 5px;
 
   font-size: 20px;
   font-weight: 500;
@@ -48,12 +48,10 @@ export const Question = styled.div`
   margin-top: 10px;
   font-size: 18px;
 
-  a {
+  button {
     margin-left: 6px;
     font-size: 18px;
     font-weight: 600;
-
-    text-decoration: none;
 
     transition: color .2s;
 

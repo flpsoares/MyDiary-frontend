@@ -17,7 +17,7 @@ export const RegisterModal: React.FC = () => {
         <Title>Create account on MyDiary</Title>
         <div>
           <CustomInput label="Username" />
-          <CustomInput label="Password" isPassword forgotPassword />
+          <CustomInput label="Password" isPassword />
           <CustomInput label="Confirm password" isPassword />
           <CustomInput label="Email" />
         </div>

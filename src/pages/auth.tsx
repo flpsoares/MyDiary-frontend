@@ -6,16 +6,21 @@ import CustomInput from '../components/CustomInput'
 import RegisterModal from '../components/RegisterModal'
 import { RegisterModalContext } from '../contexts/RegisterModalContext'
 import { useContext, useRef } from 'react'
+import api from '../services/api'
 
 export const Auth: React.FC = () => {
   const { openModal, isOpen } = useContext(RegisterModalContext)
 
   const usernameRef = useRef<HTMLInputElement>()
+  const passwordRef = useRef<HTMLInputElement>()
 
   function handleSubmit(e) {
     e.preventDefault()
 
-    console.log(usernameRef.current.value)
+    api.post('auth', {
+      username: usernameRef.current.value,
+      password: passwordRef.current.value
+    })
   }
 
   return (
@@ -28,7 +33,7 @@ export const Auth: React.FC = () => {
       <Box>
         <form method="post">
           <CustomInput inputRef={usernameRef} label="Username" />
-          <CustomInput label="Password" isPassword forgotPassword />
+          <CustomInput inputRef={passwordRef} label="Password" isPassword forgotPassword />
           <AuthButton onClick={handleSubmit}>Sign In</AuthButton>
           <Question>
             <span>New on MyDiary?</span>

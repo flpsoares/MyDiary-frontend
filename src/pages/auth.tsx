@@ -7,6 +7,7 @@ import RegisterModal from '../components/RegisterModal'
 import { RegisterModalContext } from '../contexts/RegisterModalContext'
 import { useContext, useRef } from 'react'
 import api from '../services/api'
+import Alert from '../components/Alert'
 
 export const Auth: React.FC = () => {
   const { openModal, isOpen } = useContext(RegisterModalContext)
@@ -28,6 +29,7 @@ export const Auth: React.FC = () => {
       <Head>
         <title>MyDiary | Login</title>
       </Head>
+      <Alert />
       {isOpen  && <RegisterModal />}
       <Title>Sign In</Title>
       <Box>

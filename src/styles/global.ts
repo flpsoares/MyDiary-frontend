@@ -19,5 +19,6 @@ export default createGlobalStyle`
   :root {
     --primary: #753ffc;
     --text-primary: #c9d1d9;
+    --error: #dc4a46;
   }
 `

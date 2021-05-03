@@ -1,4 +1,5 @@
 import { useState, createContext, ReactNode } from 'react'
+import AlertEvents from '../events/AlertEvents'
 
 interface RegisterModalContextData {
   isOpen: boolean
@@ -21,6 +22,7 @@ export function RegisterModalProvider({children}: RegisterModalProviderProps) {
 
   const closeModal = () => {
     setIsOpen(false)
+    AlertEvents.emit('currentError', undefined)
   }
 
   return (

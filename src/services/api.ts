@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import AlertEvents from '../events/AlertEvents'
+
 const api = axios.create({
   baseURL: 'http://localhost:3333/'
 })
@@ -9,7 +11,8 @@ api.interceptors.response.use(
     return response
   },
   function(error) {
-    return Promise.reject(error.response.data.errors[0].message)
+    AlertEvents.emit('currentError', error.response.data.errors[0].message)
+    console.log(error.response.data.errors[0].message)
   }
 )
 

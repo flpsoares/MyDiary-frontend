@@ -4,7 +4,7 @@ export const Container = styled.div`
   background: var(--error);
   border: 1px solid #e8544f;
 
-  width: 400px;
+  width: 100%;
 
   padding: 5px;
 
@@ -12,7 +12,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  margin-top: 30px;
+  margin: 10px 0;
 
   border-radius: 5px;
 `

@@ -11,11 +11,11 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `
 
 export const Box = styled.div`
   width: 500px;
-  /* height: 500px; */
   border-radius: 5px;
   background: #161b22;
   padding: 25px;
@@ -23,6 +23,8 @@ export const Box = styled.div`
   z-index: 2;
 
   position: relative;
+
+  margin-top: 20px;
 `
 
 export const CloseButton = styled.button`

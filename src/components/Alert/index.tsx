@@ -1,15 +1,21 @@
 import { CloseButton, Container, Title } from './style'
 
-import { MdClose } from 'react-icons/md'
-import { useContext } from 'react'
-import { AlertContext } from '../../contexts/AlertContex'
+import AlertError from '../../events/AlertEvents'
 
-const Alert: React.FC = () => {
-  const { closeAlert } = useContext(AlertContext)
+import { MdClose } from 'react-icons/md'
+
+interface AlertProps {
+  message: string
+}
+
+const Alert: React.FC<AlertProps> = ({ message }) => {
+  const closeAlert = () => {
+    AlertError.emit('currentError', undefined)
+  }
 
   return (
     <Container>
-      <Title>Erro</Title>
+      <Title>{message}</Title>
       <CloseButton onClick={closeAlert}>
         <MdClose />
       </CloseButton>

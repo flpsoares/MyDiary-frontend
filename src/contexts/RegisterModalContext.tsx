@@ -13,7 +13,7 @@ interface RegisterModalProviderProps {
 
 export const RegisterModalContext = createContext({} as RegisterModalContextData)
 
-export function RegisterModalProvider({children}: RegisterModalProviderProps) {
+export function RegisterModalProvider({ children }: RegisterModalProviderProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const openModal = () => {
@@ -26,7 +26,7 @@ export function RegisterModalProvider({children}: RegisterModalProviderProps) {
   }
 
   return (
-    <RegisterModalContext.Provider value={{isOpen, openModal, closeModal}}>
+    <RegisterModalContext.Provider value={{ isOpen, openModal, closeModal }}>
       {children}
     </RegisterModalContext.Provider>
   )

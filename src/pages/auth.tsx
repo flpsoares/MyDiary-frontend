@@ -27,7 +27,6 @@ export const Auth: React.FC = () => {
       username: usernameRef.current.value,
       password: passwordRef.current.value
     })
-
   }
 
   return (
@@ -35,17 +34,24 @@ export const Auth: React.FC = () => {
       <Head>
         <title>MyDiary | Login</title>
       </Head>
-      { isOpen  && <RegisterModal /> }
+      {isOpen && <RegisterModal />}
       <Title>Sign In</Title>
       <Box>
-      { message && <Alert message={message} /> }
+        {message && <Alert message={message} />}
         <form method="post">
           <CustomInput inputRef={usernameRef} label="Username" />
-          <CustomInput inputRef={passwordRef} label="Password" isPassword forgotPassword />
+          <CustomInput
+            inputRef={passwordRef}
+            label="Password"
+            isPassword
+            forgotPassword
+          />
           <AuthButton onClick={handleSubmit}>Sign In</AuthButton>
           <Question>
             <span>New on MyDiary?</span>
-            <button type="button" onClick={openModal}>Create account</button>
+            <button type="button" onClick={openModal}>
+              Create account
+            </button>
           </Question>
         </form>
       </Box>

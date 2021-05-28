@@ -1,4 +1,4 @@
-import { useState, createContext, ReactNode } from 'react'  
+import { useState, createContext, ReactNode } from 'react'
 
 interface AlertContextData {
   alertIsOpen: boolean
@@ -12,7 +12,7 @@ interface AlertContextProviderProps {
 
 export const AlertContext = createContext({} as AlertContextData)
 
-export function AlertContextProvider({children}: AlertContextProviderProps) {
+export function AlertContextProvider({ children }: AlertContextProviderProps) {
   const [alertIsOpen, setAlertIsOpen] = useState(true)
 
   const openAlert = () => {
@@ -24,7 +24,7 @@ export function AlertContextProvider({children}: AlertContextProviderProps) {
   }
 
   return (
-    <AlertContext.Provider value={{alertIsOpen, openAlert, closeAlert }}>
+    <AlertContext.Provider value={{ alertIsOpen, openAlert, closeAlert }}>
       {children}
     </AlertContext.Provider>
   )

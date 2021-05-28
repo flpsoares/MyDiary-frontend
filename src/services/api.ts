@@ -7,12 +7,11 @@ const api = axios.create({
 })
 
 api.interceptors.response.use(
-  function(response) {
+  function (response) {
     return response
   },
-  function(error) {
+  function (error) {
     AlertEvents.emit('currentError', error.response.data.errors[0].message)
-    console.log(error.response.data.errors[0].message)
   }
 )
 

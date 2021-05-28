@@ -37,7 +37,7 @@ export const AuthButton = styled.button`
 
   padding: 10px 0;
 
-  transition: filter .2s;
+  transition: filter 0.2s;
 
   &:hover {
     filter: brightness(0.9);
@@ -53,10 +53,10 @@ export const Question = styled.div`
     font-size: 18px;
     font-weight: 600;
 
-    transition: color .2s;
+    transition: color 0.2s;
 
     &:hover {
-      color: #FFF;
+      color: #fff;
     }
   }
 `

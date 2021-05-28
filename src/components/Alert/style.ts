@@ -25,7 +25,7 @@ export const Title = styled.span`
 export const CloseButton = styled.button`
   font-size: 18px;
 
-  transition: filter .2s;
+  transition: filter 0.2s;
 
   &:hover {
     filter: brightness(1.2);

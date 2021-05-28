@@ -24,10 +24,8 @@ export const RegisterModal: React.FC = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if(passwordRef.current.value != confirmPasswordRef.current.value) {
-      return (
-        AlertEvents.emit('currentError', 'The passwords are different')
-      )
+    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      return AlertEvents.emit('currentError', 'The passwords are different')
     }
 
     await api.post('user', {
@@ -44,11 +42,15 @@ export const RegisterModal: React.FC = () => {
           <RiCloseLine />
         </CloseButton>
         <Title>Create account on MyDiary</Title>
-        { message && <Alert message={message} /> }
+        {message && <Alert message={message} />}
         <div>
           <CustomInput inputRef={usernameRef} label="Username" />
           <CustomInput inputRef={passwordRef} label="Password" isPassword />
-          <CustomInput inputRef={confirmPasswordRef} label="Confirm password" isPassword />
+          <CustomInput
+            inputRef={confirmPasswordRef}
+            label="Confirm password"
+            isPassword
+          />
           <CustomInput inputRef={emailRef} label="Email" />
         </div>
         <AuthButton onClick={handleSubmit}>Sign Up</AuthButton>

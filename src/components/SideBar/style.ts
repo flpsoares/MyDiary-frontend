@@ -37,6 +37,10 @@ export const Container = styled.div`
       background: var(--primary);
       font-weight: 600;
     }
+
+    a {
+      text-decoration: none;
+    }
   }
 
   button {

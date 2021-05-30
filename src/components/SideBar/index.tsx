@@ -1,12 +1,20 @@
 import { Container } from './style'
 
+import Link from 'next/link'
+
 const SideBar: React.FC = () => {
   return (
     <Container>
       <ul>
-        <li>Home</li>
-        <li>Profile</li>
-        <li>Settings</li>
+        <li>
+          <Link href="/">Home</Link>
+        </li>
+        <li>
+          <Link href="/profile">Profile</Link>
+        </li>
+        <li>
+          <Link href="/settings">Settings</Link>
+        </li>
       </ul>
       <button type="button">Log out</button>
     </Container>

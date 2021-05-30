@@ -6,15 +6,15 @@ const SideBar: React.FC = () => {
   return (
     <Container>
       <ul>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="/profile">Profile</Link>
-        </li>
-        <li>
-          <Link href="/settings">Settings</Link>
-        </li>
+        <Link href="/">
+          <li>Home</li>
+        </Link>
+        <Link href="/profile">
+          <li>Profile</li>
+        </Link>
+        <Link href="/settings">
+          <li>Settings</li>
+        </Link>
       </ul>
       <button type="button">Log out</button>
     </Container>

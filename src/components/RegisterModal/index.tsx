@@ -10,11 +10,13 @@ import { useAlertError } from '../../hooks/useAlertError'
 
 import Alert from '../../components/Alert'
 import AlertEvents from '../../events/AlertEvents'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export const RegisterModal: React.FC = () => {
   const { closeModal } = useContext(RegisterModalContext)
+  const { signUp } = useContext(AuthContext)
 
-  const { message } = useAlertError()
+  const { registerErrorMessage } = useAlertError()
 
   const usernameRef = useRef<HTMLInputElement>()
   const passwordRef = useRef<HTMLInputElement>()
@@ -25,14 +27,16 @@ export const RegisterModal: React.FC = () => {
     e.preventDefault()
 
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      return AlertEvents.emit('currentError', 'The passwords are different')
+      return AlertEvents.emit('currentRegisterError', 'The passwords are different')
     }
 
-    await api.post('user', {
+    const data = {
       username: usernameRef.current.value,
       password: passwordRef.current.value,
       email: emailRef.current.value
-    })
+    }
+
+    signUp(data)
   }
 
   return (
@@ -42,7 +46,7 @@ export const RegisterModal: React.FC = () => {
           <RiCloseLine />
         </CloseButton>
         <Title>Create account on MyDiary</Title>
-        {message && <Alert message={message} />}
+        {registerErrorMessage && <Alert message={registerErrorMessage} />}
         <div>
           <CustomInput inputRef={usernameRef} label="Username" />
           <CustomInput inputRef={passwordRef} label="Password" isPassword />

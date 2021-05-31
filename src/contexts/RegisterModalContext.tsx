@@ -22,7 +22,7 @@ export function RegisterModalProvider({ children }: RegisterModalProviderProps) 
 
   const closeModal = () => {
     setIsOpen(false)
-    AlertEvents.emit('currentError', undefined)
+    AlertEvents.emit('currentRegisterError', undefined)
   }
 
   return (

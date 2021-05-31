@@ -10,7 +10,8 @@ interface AlertProps {
 
 const Alert: React.FC<AlertProps> = ({ message }) => {
   const closeAlert = () => {
-    AlertError.emit('currentError', undefined)
+    AlertError.emit('currentLoginError', undefined)
+    AlertError.emit('currentRegisterError', undefined)
   }
 
   return (

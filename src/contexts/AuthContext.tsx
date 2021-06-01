@@ -74,6 +74,11 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
   }
 
   async function signIn({ username, password }: User) {
+    const user = {
+      username,
+      password
+    }
+
     await api
       .post('auth', {
         username,
@@ -82,7 +87,14 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
       .then((res) => {
         api.defaults.headers.Authorization = `Bearer ${res.data.token}`
       })
-      .then(setProfile)
+      .then(() => {
+        setUser(user)
+        Router.push('/home')
+
+        setCookie(undefined, 'mydiary-token', api.defaults.headers.Authorization, {
+          maxAge: 60 * 60 * 1 // 1 hour
+        })
+      })
       .catch((err: Error | AxiosError) => {
         if (axios.isAxiosError(err)) {
           AlertEvents.emit('currentLoginError', err.response.data.errors[0].message)
@@ -90,19 +102,6 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
           AlertEvents.emit('currentLoginError', 'Internal Error')
         }
       })
-
-    const user = {
-      username,
-      password
-    }
-
-    setCookie(undefined, 'mydiary-token', api.defaults.headers.Authorization, {
-      maxAge: 60 * 60 * 1 // 1 hour
-    })
-
-    setUser(user)
-
-    Router.push('/home')
   }
 
   async function logOut() {

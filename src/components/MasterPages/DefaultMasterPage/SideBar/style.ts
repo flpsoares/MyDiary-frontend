@@ -4,6 +4,10 @@ export const Container = styled.div`
   grid-area: sidebar;
   border-right: 3px solid var(--primary);
 
+  position: fixed;
+  width: 300px;
+  height: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;

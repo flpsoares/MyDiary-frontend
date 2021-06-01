@@ -3,7 +3,17 @@ import styled from 'styled-components'
 export const Container = styled.div`
   grid-area: header;
 
+  background: var(--dark);
+
+  z-index: 2;
+
   border-bottom: 3px solid var(--primary);
+
+  position: fixed;
+  height: 80px;
+  width: calc(100% - 321px);
+
+  right: 21px;
 
   display: flex;
   align-items: center;

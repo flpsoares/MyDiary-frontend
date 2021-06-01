@@ -8,16 +8,14 @@ import CustomInput from '../components/CustomInput'
 import RegisterModal from '../components/RegisterModal'
 import Alert from '../components/Alert'
 
-import api from '../services/api'
-
 import { RegisterModalContext } from '../contexts/RegisterModalContext'
-import axios, { AxiosError } from 'axios'
-import AlertEvents from '../events/AlertEvents'
+import { AuthContext } from '../contexts/AuthContext'
 
 export const Auth: React.FC = () => {
   const { loginErrorMessage } = useAlertError()
 
   const { openModal, isOpen } = useContext(RegisterModalContext)
+  const { signIn } = useContext(AuthContext)
 
   const usernameRef = useRef<HTMLInputElement>()
   const passwordRef = useRef<HTMLInputElement>()
@@ -25,18 +23,12 @@ export const Auth: React.FC = () => {
   function handleSubmit(e) {
     e.preventDefault()
 
-    api
-      .post('auth', {
-        username: usernameRef.current.value,
-        password: passwordRef.current.value
-      })
-      .catch((err: Error | AxiosError) => {
-        if (axios.isAxiosError(err)) {
-          AlertEvents.emit('currentLoginError', err.response.data.errors[0].message)
-        } else {
-          AlertEvents.emit('currentLoginError', 'Internal Error')
-        }
-      })
+    const data = {
+      username: usernameRef.current.value,
+      password: passwordRef.current.value
+    }
+
+    signIn(data)
   }
 
   return (

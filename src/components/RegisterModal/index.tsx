@@ -5,7 +5,6 @@ import { RegisterModalContext } from '../../contexts/RegisterModalContext'
 import CustomInput from '../CustomInput'
 import { Container, Box, Title, AuthButton, CloseButton } from './style'
 
-import api from '../../services/api'
 import { useAlertError } from '../../hooks/useAlertError'
 
 import Alert from '../../components/Alert'

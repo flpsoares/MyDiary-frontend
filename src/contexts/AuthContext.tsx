@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
 import AlertEvents from '../events/AlertEvents'
-import api from '../services/api'
+import { api } from '../services/api'
 import axios, { AxiosError } from 'axios'
 import { setCookie, parseCookies } from 'nookies'
 import Router from 'next/router'
@@ -32,7 +32,7 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
     const { 'mydiary-token': token } = parseCookies()
 
     if (token) {
-      api.defaults.headers.common.Authorization = token
+      api.defaults.headers.Authorization = token
       setProfile()
     }
   }, [])
@@ -70,7 +70,7 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
         password
       })
       .then((res) => {
-        api.defaults.headers.common.Authorization = `Bearer ${res.data.token}`
+        api.defaults.headers.Authorization = `Bearer ${res.data.token}`
       })
       .then(setProfile)
       .catch((err: Error | AxiosError) => {
@@ -86,20 +86,14 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
       password
     }
 
-    setCookie(
-      undefined,
-      'mydiary-token',
-      api.defaults.headers.common.Authorization,
-      {
-        maxAge: 60 * 60 * 1 // 1 hour
-      }
-    )
+    setCookie(undefined, 'mydiary-token', api.defaults.headers.Authorization, {
+      maxAge: 60 * 60 * 1 // 1 hour
+    })
 
     setUser(user)
 
     Router.push('/')
   }
-
   return (
     <AuthContext.Provider value={{ isAuthenticated, signUp, signIn, user }}>
       {children}

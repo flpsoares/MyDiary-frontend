@@ -9,12 +9,11 @@ export const Header: React.FC = () => {
 
   return (
     <Container>
-      <span>{user ? user.username : 'Username'}</span>
+      <span>{user?.username}</span>
       <button type="button">
         <Image src="/assets/profile.jpg" alt="profile" width={50} height={50} />
       </button>
     </Container>
   )
 }
-
 export default Header

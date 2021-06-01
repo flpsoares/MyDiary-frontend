@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Content from './Content'
 import Header from './Header'
 import SideBar from './SideBar'
+
 import { Container } from './style'
 
 interface DefaultMasterPageProps {

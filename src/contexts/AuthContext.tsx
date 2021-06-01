@@ -10,7 +10,7 @@ interface AuthContextData {
   user: User
   signUp: ({ username, password, email }: User) => Promise<void>
   signIn: ({ username, password }: User) => Promise<void>
-  logOut: () => any
+  logOut: () => void
 }
 
 interface AuthContextProviderProps {
@@ -45,6 +45,7 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
         password,
         email
       })
+      // .then(() => Router.push('/home'))
       .catch((err: Error | AxiosError) => {
         if (axios.isAxiosError(err)) {
           AlertEvents.emit(
@@ -55,6 +56,14 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
           AlertEvents.emit('currentRegisterError', 'Internal Error')
         }
       })
+
+    const data = {
+      username: username,
+      password: password
+    }
+
+    signIn(data)
+    Router.push('/home')
   }
 
   async function setProfile() {
@@ -93,7 +102,7 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
 
     setUser(user)
 
-    Router.push('/')
+    Router.push('/home')
   }
 
   async function logOut() {

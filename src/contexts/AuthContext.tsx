@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react'
 import AlertEvents from '../events/AlertEvents'
 import { api } from '../services/api'
 import axios, { AxiosError } from 'axios'
-import { setCookie, parseCookies } from 'nookies'
+import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import Router from 'next/router'
 
 interface AuthContextData {
@@ -10,6 +10,7 @@ interface AuthContextData {
   user: User
   signUp: ({ username, password, email }: User) => Promise<void>
   signIn: ({ username, password }: User) => Promise<void>
+  logOut: () => any
 }
 
 interface AuthContextProviderProps {
@@ -94,8 +95,14 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
 
     Router.push('/')
   }
+
+  async function logOut() {
+    destroyCookie(undefined, 'mydiary-token')
+    Router.push('/auth')
+  }
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signUp, signIn, user }}>
+    <AuthContext.Provider value={{ isAuthenticated, signUp, signIn, user, logOut }}>
       {children}
     </AuthContext.Provider>
   )

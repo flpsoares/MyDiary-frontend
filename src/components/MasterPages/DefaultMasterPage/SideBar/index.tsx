@@ -1,12 +1,16 @@
 import { Container } from './style'
 
 import Link from 'next/link'
+import { useContext } from 'react'
+import { AuthContext } from '../../../../contexts/AuthContext'
 
 const SideBar: React.FC = () => {
+  const { logOut } = useContext(AuthContext)
+
   return (
     <Container>
       <ul>
-        <Link href="/">
+        <Link href="/home">
           <li>Home</li>
         </Link>
         <Link href="/profile">
@@ -16,7 +20,9 @@ const SideBar: React.FC = () => {
           <li>Settings</li>
         </Link>
       </ul>
-      <button type="button">Log out</button>
+      <button type="button" onClick={logOut}>
+        Log out
+      </button>
     </Container>
   )
 }

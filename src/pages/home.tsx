@@ -18,6 +18,8 @@ const Home: React.FC = () => {
         </NewPostButton>
         <PostArea>
           <Post />
+          <Post />
+          <Post />
         </PostArea>
       </Container>
     </DefaultMasterPage>

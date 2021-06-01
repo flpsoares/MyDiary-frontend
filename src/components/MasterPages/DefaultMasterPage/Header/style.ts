@@ -26,14 +26,13 @@ export const Container = styled.div`
     font-size: 20px;
   }
 
-  button {
-    img {
-      border-radius: 50%;
-      transition: border-radius 0.2s;
+  img {
+    border-radius: 50%;
+    transition: border-radius 0.2s;
 
-      &:hover {
-        border-radius: 15px;
-      }
+    &:hover {
+      border-radius: 15px;
+      cursor: pointer;
     }
   }
 `

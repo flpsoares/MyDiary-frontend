@@ -7,9 +7,10 @@ import Content from '../components/MasterPages/DefaultMasterPage/Content'
 import { Container } from '../styles/main'
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import Router from 'next/router'
 import NewPostModal from '../components/NewPostModal'
+import { PostContext } from '../contexts/PostContext'
 
 interface MainProps {
   title: string
@@ -22,12 +23,14 @@ export const Main: React.FC<MainProps> = ({ title, children }) => {
     }
   }, [])
 
+  const { modalPostIsOpen } = useContext(PostContext)
+
   return (
     <Container>
       <Head>
         <title>MyDiary | {title}</title>
       </Head>
-      <NewPostModal />
+      {modalPostIsOpen && <NewPostModal />}
       <Header />
       <SideBar />
       <Content children={children} />

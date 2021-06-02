@@ -4,6 +4,7 @@ import { AuthProvider } from '../contexts/AuthContext'
 
 import { RegisterModalProvider } from '../contexts/RegisterModalContext'
 import { AlertContextProvider } from '../contexts/AlertContex'
+import { PostContextProvider } from '../contexts/PostContext'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -11,8 +12,10 @@ function MyApp({ Component, pageProps }) {
       <AuthProvider>
         <RegisterModalProvider>
           <AlertContextProvider>
-            <GlobalStyle />
-            <Component {...pageProps} />
+            <PostContextProvider>
+              <GlobalStyle />
+              <Component {...pageProps} />
+            </PostContextProvider>
           </AlertContextProvider>
         </RegisterModalProvider>
       </AuthProvider>

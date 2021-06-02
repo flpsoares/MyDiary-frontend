@@ -7,12 +7,16 @@ import { Container, NewPostButton, PostArea } from '../styles/home'
 import Post from '../components/Post'
 
 import { HiPlus } from 'react-icons/hi'
+import { useContext } from 'react'
+import { PostContext } from '../contexts/PostContext'
 
 const Home: React.FC = () => {
+  const { openModalPost } = useContext(PostContext)
+
   return (
     <DefaultMasterPage title="Home">
       <Container>
-        <NewPostButton>
+        <NewPostButton onClick={openModalPost}>
           <HiPlus size={20} />
           <span>New Post</span>
         </NewPostButton>

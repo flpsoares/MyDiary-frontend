@@ -11,13 +11,17 @@ import {
 
 import { MdClose } from 'react-icons/md'
 import Image from 'next/image'
+import { useContext } from 'react'
+import { PostContext } from '../../contexts/PostContext'
 
 const NewPostModal: React.FC = () => {
+  const { closeModalPost } = useContext(PostContext)
+
   return (
     <Container>
       <Box>
         <Header>Create Post</Header>
-        <CloseButton type="button">
+        <CloseButton onClick={closeModalPost} type="button">
           <MdClose size={22} />
         </CloseButton>
         <Profile>

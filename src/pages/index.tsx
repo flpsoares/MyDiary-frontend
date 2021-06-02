@@ -9,6 +9,7 @@ import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
 import { useEffect } from 'react'
 import Router from 'next/router'
+import NewPostModal from '../components/NewPostModal'
 
 interface MainProps {
   title: string
@@ -26,6 +27,7 @@ export const Main: React.FC<MainProps> = ({ title, children }) => {
       <Head>
         <title>MyDiary | {title}</title>
       </Head>
+      <NewPostModal />
       <Header />
       <SideBar />
       <Content children={children} />

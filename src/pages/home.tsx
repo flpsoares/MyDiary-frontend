@@ -24,6 +24,16 @@ const Home: React.FC = () => {
           <Post />
           <Post />
           <Post />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
         </PostArea>
       </Container>
     </DefaultMasterPage>

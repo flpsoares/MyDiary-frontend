@@ -10,6 +10,8 @@ import Alert from '../components/Alert'
 
 import { RegisterModalContext } from '../contexts/RegisterModalContext'
 import { AuthContext } from '../contexts/AuthContext'
+import { GetServerSideProps } from 'next'
+import { parseCookies } from 'nookies'
 
 export const Auth: React.FC = () => {
   const { loginErrorMessage } = useAlertError()
@@ -59,6 +61,23 @@ export const Auth: React.FC = () => {
       </Box>
     </Container>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { 'mydiary-token': token } = parseCookies(ctx)
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/home',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
 }
 
 export default Auth

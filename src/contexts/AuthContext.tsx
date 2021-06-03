@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import { createContext, ReactNode, useEffect, useMemo, useState } from 'react'
 import AlertEvents from '../events/AlertEvents'
 import { api } from '../services/api'
 import axios, { AxiosError } from 'axios'
@@ -21,8 +21,8 @@ interface AuthContextProviderProps {
 export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider({ children }: AuthContextProviderProps) {
-  const [user, setUser] = useState<User | null>(null)
-  const isAuthenticated = !!user
+  const [user, setUser] = useState<User>(null)
+  const isAuthenticated = useMemo(() => !!user, [user])
 
   useEffect(() => {
     const { 'mydiary-token': token } = parseCookies()

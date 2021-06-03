@@ -9,18 +9,17 @@ import Post from '../components/Post'
 import { HiPlus } from 'react-icons/hi'
 import { useContext, useEffect, useState } from 'react'
 import { PostContext } from '../contexts/PostContext'
-import UserApi from '../services/api/UserApi'
-import UsersCollection from '../services/collections/UsersCollection'
+import PostApi from '../services/api/PostApi'
+import PostsCollection from '../services/collections/PostsCollection'
 import { useCollection } from '../hooks/useCollection'
 
 const Home: React.FC = () => {
   const { openModalPost } = useContext(PostContext)
 
-  // const [users, setUsers] = useState<App.User[]>([])
-  const { items } = useCollection(UsersCollection)
+  const { items } = useCollection(PostsCollection)
 
   useEffect(() => {
-    UserApi.list()
+    PostApi.list()
   }, [])
 
   return (
@@ -31,8 +30,8 @@ const Home: React.FC = () => {
           <span>New Post</span>
         </NewPostButton>
         <PostArea>
-          {items.map((user) => {
-            return <Post key={user.id} user={user} />
+          {items.map((post) => {
+            return <Post key={post.id} post={post} />
           })}
         </PostArea>
       </Container>

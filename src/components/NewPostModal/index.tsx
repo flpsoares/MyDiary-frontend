@@ -18,8 +18,8 @@ const NewPostModal: React.FC = () => {
   const { closeModalPost } = useContext(PostContext)
 
   return (
-    <Container>
-      <Box>
+    <Container onClick={closeModalPost}>
+      <Box initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
         <Header>Create Post</Header>
         <CloseButton onClick={closeModalPost} type="button">
           <MdClose size={22} />

@@ -11,6 +11,7 @@ import { useContext, useEffect } from 'react'
 import Router from 'next/router'
 import NewPostModal from '../components/NewPostModal'
 import { PostContext } from '../contexts/PostContext'
+import { AnimatePresence } from 'framer-motion'
 
 interface MainProps {
   title: string
@@ -30,7 +31,7 @@ export const Main: React.FC<MainProps> = ({ title, children }) => {
       <Head>
         <title>MyDiary | {title}</title>
       </Head>
-      {modalPostIsOpen && <NewPostModal />}
+      <AnimatePresence>{modalPostIsOpen && <NewPostModal />}</AnimatePresence>
       <Header />
       <SideBar />
       <Content children={children} />

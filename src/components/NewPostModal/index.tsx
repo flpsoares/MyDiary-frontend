@@ -11,13 +11,26 @@ import {
 
 import { MdClose } from 'react-icons/md'
 import Image from 'next/image'
-import { useContext } from 'react'
+import { useContext, useRef } from 'react'
 import { PostContext } from '../../contexts/PostContext'
 import { AuthContext } from '../../contexts/AuthContext'
+import PostApi from '../../services/api/PostApi'
 
 const NewPostModal: React.FC = () => {
   const { closeModalPost } = useContext(PostContext)
   const { user } = useContext(AuthContext)
+
+  const contentRef = useRef<HTMLTextAreaElement>()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (contentRef.current.value.length > 0) {
+      PostApi.create({ content: contentRef.current.value }).then(() => {
+        closeModalPost()
+      })
+    }
+  }
 
   return (
     <Container>
@@ -30,9 +43,9 @@ const NewPostModal: React.FC = () => {
           <Image src="/assets/profile.jpg" alt="profile" width={50} height={50} />
           <span>{user.username}</span>
         </Profile>
-        <Content placeholder="Type what you're thinking" />
+        <Content ref={contentRef} placeholder="Type what you're thinking" />
         <SubmitArea>
-          <SubmitButton>Post</SubmitButton>
+          <SubmitButton onClick={handleSubmit}>Post</SubmitButton>
         </SubmitArea>
       </Box>
     </Container>

@@ -3,9 +3,15 @@ import PostsCollection from '../collections/PostsCollection'
 
 class PostApi {
   public async create({ content }: Partial<App.Post>) {
-    return api.post('post', {
-      content
-    })
+    return api
+      .post<App.Post>('post', {
+        content
+      })
+      .then((res) => res.data)
+      .then((post) => {
+        PostsCollection.set(post)
+        return post
+      })
   }
 
   public async list() {

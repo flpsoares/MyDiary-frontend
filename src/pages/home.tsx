@@ -7,7 +7,7 @@ import { Container, NewPostButton, PostArea } from '../styles/home'
 import Post from '../components/Post'
 
 import { HiPlus } from 'react-icons/hi'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { PostContext } from '../contexts/PostContext'
 import PostApi from '../services/api/PostApi'
 import PostsCollection from '../services/collections/PostsCollection'

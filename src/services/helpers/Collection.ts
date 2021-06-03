@@ -28,7 +28,7 @@ export class Collection<T = any> extends TypedEmitter<{
 
   public add(item: Partial<T>) {
     // @ts-ignore
-    this.collection.push(item)
+    this.collection.unshift(item)
 
     return item
   }

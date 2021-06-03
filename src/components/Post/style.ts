@@ -9,6 +9,7 @@ export const Container = styled.div`
 
   border-radius: 7px;
   background: rgba(30, 30, 30, 0.9);
+  position: relative;
 `
 
 export const Header = styled.div`
@@ -38,4 +39,19 @@ export const Header = styled.div`
 
 export const Content = styled.div`
   margin-top: 15px;
+`
+
+export const Delete = styled.button`
+  width: 40px;
+  height: 40px;
+  background: red;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 5px;
+  right: 5px;
 `

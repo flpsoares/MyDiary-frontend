@@ -5,6 +5,8 @@ import axios, { AxiosError } from 'axios'
 import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import Router from 'next/router'
 
+type User = Partial<App.User>
+
 interface AuthContextData {
   isAuthenticated: boolean
   user: User
@@ -16,13 +18,6 @@ interface AuthContextData {
 interface AuthContextProviderProps {
   children: ReactNode
 }
-
-interface User {
-  username: string
-  password: string
-  email?: string
-}
-
 export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider({ children }: AuthContextProviderProps) {
@@ -39,13 +34,22 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
   }, [])
 
   async function signUp({ username, password, email }: User) {
+    const data = {
+      username: username,
+      password: password,
+      email: null
+    }
+
     await api
       .post('user', {
         username,
         password,
         email
       })
-      // .then(() => Router.push('/home'))
+      .then(() => {
+        signIn(data)
+        Router.push('/home')
+      })
       .catch((err: Error | AxiosError) => {
         if (axios.isAxiosError(err)) {
           AlertEvents.emit(
@@ -56,14 +60,6 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
           AlertEvents.emit('currentRegisterError', 'Internal Error')
         }
       })
-
-    const data = {
-      username: username,
-      password: password
-    }
-
-    signIn(data)
-    Router.push('/home')
   }
 
   async function setProfile() {

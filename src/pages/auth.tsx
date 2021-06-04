@@ -1,6 +1,8 @@
 import { useAlertError } from '../hooks/useAlertError'
-import { useContext, useRef } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { Container, Title, Box, AuthButton, Question } from '../styles/AuthStyled'
+
+import ReactLoading from 'react-loading'
 
 import Head from 'next/head'
 
@@ -19,18 +21,23 @@ export const Auth: React.FC = () => {
   const { openModal, isOpen } = useContext(RegisterModalContext)
   const { signIn } = useContext(AuthContext)
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const usernameRef = useRef<HTMLInputElement>()
   const passwordRef = useRef<HTMLInputElement>()
 
   function handleSubmit(e) {
     e.preventDefault()
+    setIsLoading(true)
 
     const data = {
       username: usernameRef.current.value,
       password: passwordRef.current.value
     }
 
-    signIn(data)
+    signIn(data).finally(() => {
+      setIsLoading(false)
+    })
   }
 
   return (
@@ -59,6 +66,7 @@ export const Auth: React.FC = () => {
           </Question>
         </form>
       </Box>
+      {isLoading && <ReactLoading />}
     </Container>
   )
 }

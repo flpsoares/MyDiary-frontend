@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { RiCloseLine } from 'react-icons/ri'
 import { RegisterModalContext } from '../../contexts/RegisterModalContext'
 
@@ -6,6 +6,8 @@ import CustomInput from '../CustomInput'
 import { Container, Box, Title, AuthButton, CloseButton } from './style'
 
 import { useAlertError } from '../../hooks/useAlertError'
+
+import ReactLoading from 'react-loading'
 
 import Alert from '../../components/Alert'
 import AlertEvents from '../../events/AlertEvents'
@@ -16,6 +18,8 @@ export const RegisterModal: React.FC = () => {
   const { signUp } = useContext(AuthContext)
 
   const { registerErrorMessage } = useAlertError()
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const usernameRef = useRef<HTMLInputElement>()
   const passwordRef = useRef<HTMLInputElement>()
@@ -35,7 +39,10 @@ export const RegisterModal: React.FC = () => {
       email: emailRef.current.value
     }
 
-    signUp(data)
+    setIsLoading(true)
+    signUp(data).finally(() => {
+      setIsLoading(false)
+    })
   }
 
   return (
@@ -58,6 +65,7 @@ export const RegisterModal: React.FC = () => {
         </div>
         <AuthButton onClick={handleSubmit}>Sign Up</AuthButton>
       </Box>
+      {isLoading && <ReactLoading />}
     </Container>
   )
 }

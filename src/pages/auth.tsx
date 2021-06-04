@@ -14,6 +14,7 @@ import { RegisterModalContext } from '../contexts/RegisterModalContext'
 import { AuthContext } from '../contexts/AuthContext'
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
+import { AnimatePresence } from 'framer-motion'
 
 export const Auth: React.FC = () => {
   const { loginErrorMessage } = useAlertError()
@@ -45,7 +46,7 @@ export const Auth: React.FC = () => {
       <Head>
         <title>MyDiary | Login</title>
       </Head>
-      {isOpen && <RegisterModal />}
+      <AnimatePresence>{isOpen && <RegisterModal />}</AnimatePresence>
       <Title>Sign In</Title>
       <Box>
         {loginErrorMessage && <Alert message={loginErrorMessage} />}

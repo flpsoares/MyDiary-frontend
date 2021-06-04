@@ -47,7 +47,7 @@ export const RegisterModal: React.FC = () => {
 
   return (
     <Container>
-      <Box>
+      <Box initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
         <CloseButton onClick={closeModal}>
           <RiCloseLine />
         </CloseButton>

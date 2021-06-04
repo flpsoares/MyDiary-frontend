@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { motion } from 'framer-motion'
+
 export const Container = styled.div`
   background: rgba(0, 0, 0, 0.7);
 
@@ -7,14 +9,14 @@ export const Container = styled.div`
   height: 100vh;
 
   position: fixed;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 `
 
-export const Box = styled.div`
+export const Box = styled(motion.div)`
   width: 500px;
   border-radius: 5px;
   background: #161b22;
@@ -56,7 +58,7 @@ export const AuthButton = styled.button`
 
   padding: 10px 0;
 
-  transition: filter .2s;
+  transition: filter 0.2s;
 
   &:hover {
     filter: brightness(0.9);

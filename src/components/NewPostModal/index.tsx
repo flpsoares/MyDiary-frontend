@@ -16,7 +16,7 @@ import { BsImage } from 'react-icons/bs'
 import ReactTooltip from 'react-tooltip'
 
 import Image from 'next/image'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, EventHandler, useContext, useRef, useState } from 'react'
 import { PostContext } from '../../contexts/PostContext'
 import { AuthContext } from '../../contexts/AuthContext'
 import PostApi from '../../services/api/PostApi'
@@ -37,11 +37,11 @@ const NewPostModal: React.FC = () => {
     }
   }
 
-  const [hasFile, setHasFile] = useState(false)
+  const fileRef = useRef<HTMLInputElement>()
 
-  const verifyFile = () => {
-    // @ts-ignore
-    if (document.getElementById('file').files.length > 0) {
+  const [hasFile, setHasFile] = useState(false)
+  const verifyFile = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
       setHasFile(true)
     } else {
       setHasFile(false)
@@ -49,8 +49,7 @@ const NewPostModal: React.FC = () => {
   }
 
   const deleteFile = () => {
-    // @ts-ignore
-    document.getElementById('file').value = ''
+    fileRef.current.value = ''
     setHasFile(false)
   }
 
@@ -64,7 +63,7 @@ const NewPostModal: React.FC = () => {
             <span>{user.username}</span>
           </Profile>
           <SendFile>
-            <label onClick={verifyFile} data-tip="Foto" htmlFor="file">
+            <label data-tip="Foto" htmlFor="file">
               <BsImage size={30} />
             </label>
             <ReactTooltip textColor="white" backgroundColor="gray" effect="solid" />
@@ -75,10 +74,13 @@ const NewPostModal: React.FC = () => {
                 size={22}
               />
             )}
-            <input onChange={verifyFile} type="file" id="file" />
+            <input onChange={verifyFile} ref={fileRef} type="file" id="file" />
           </SendFile>
         </SubHeader>
-        <Content ref={contentRef} placeholder="Type what you're thinking" />
+        <Content
+          ref={contentRef}
+          placeholder={`Type what you're thinking, ${user.username}`}
+        />
         <SubmitArea>
           <SubmitButton onClick={handleSubmit}>Post</SubmitButton>
         </SubmitArea>

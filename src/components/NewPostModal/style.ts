@@ -42,6 +42,27 @@ export const Header = styled.div`
   border-bottom: 1px solid var(--primary);
 `
 
+export const SubHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px;
+`
+
+export const SendFile = styled.div`
+  display: flex;
+  align-items: center;
+  input[type='file'] {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+    margin-right: 5px;
+  }
+`
+
 export const CloseButton = styled.button`
   position: absolute;
 
@@ -56,8 +77,6 @@ export const CloseButton = styled.button`
 export const Profile = styled.div`
   display: flex;
   align-items: center;
-
-  padding: 20px;
 
   img {
     border-radius: 50%;

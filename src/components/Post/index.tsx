@@ -2,8 +2,6 @@ import { Container, Header, Content } from './style'
 
 import Image from 'next/image'
 import Router from 'next/router'
-import PostApi from '../../services/api/PostApi'
-import { api } from '../../services/api'
 
 interface PostProps {
   post: App.Post

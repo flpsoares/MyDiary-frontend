@@ -8,7 +8,8 @@ import {
   SubmitButton,
   SubmitArea,
   SubHeader,
-  SendFile
+  SendFile,
+  ImageArea
 } from './style'
 
 import { MdClose } from 'react-icons/md'
@@ -16,7 +17,7 @@ import { BsImage } from 'react-icons/bs'
 import ReactTooltip from 'react-tooltip'
 
 import Image from 'next/image'
-import { ChangeEvent, EventHandler, useContext, useRef, useState } from 'react'
+import { ChangeEvent, useContext, useRef, useState } from 'react'
 import { PostContext } from '../../contexts/PostContext'
 import { AuthContext } from '../../contexts/AuthContext'
 import PostApi from '../../services/api/PostApi'
@@ -39,18 +40,18 @@ const NewPostModal: React.FC = () => {
 
   const fileRef = useRef<HTMLInputElement>()
 
-  const [hasFile, setHasFile] = useState(false)
+  const [srcImage, setSrcImage] = useState('')
+
   const verifyFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setHasFile(true)
-    } else {
-      setHasFile(false)
+      const [file] = Array.from(fileRef.current.files)
+      setSrcImage(URL.createObjectURL(file))
     }
   }
 
   const deleteFile = () => {
     fileRef.current.value = ''
-    setHasFile(false)
+    setSrcImage(undefined)
   }
 
   return (
@@ -67,24 +68,32 @@ const NewPostModal: React.FC = () => {
               <BsImage size={30} />
             </label>
             <ReactTooltip textColor="white" backgroundColor="gray" effect="solid" />
-            {hasFile && (
+            {/* {srcImage && (
               <MdClose
                 style={{ cursor: 'pointer' }}
                 onClick={deleteFile}
                 size={22}
               />
-            )}
-            <input onChange={verifyFile} ref={fileRef} type="file" id="file" />
+            )} */}
+            <input onChange={verifyFile} ref={fileRef} id="file" type="file" />
           </SendFile>
         </SubHeader>
         <Content
           ref={contentRef}
           placeholder={`Type what you're thinking, ${user.username}`}
         />
+        {!!srcImage && (
+          <ImageArea>
+            <img style={{ padding: '20px' }} src={srcImage} width={200} />
+            <CloseButton onClick={deleteFile} top="20px" right="20px" type="button">
+              <MdClose size={22} />
+            </CloseButton>
+          </ImageArea>
+        )}
         <SubmitArea>
           <SubmitButton onClick={handleSubmit}>Post</SubmitButton>
         </SubmitArea>
-        <CloseButton onClick={closeModalPost} type="button">
+        <CloseButton onClick={closeModalPost} top="12px" right="12px" type="button">
           <MdClose size={22} />
         </CloseButton>
       </Box>

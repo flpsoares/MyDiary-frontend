@@ -2,6 +2,11 @@ import styled from 'styled-components'
 
 import { motion } from 'framer-motion'
 
+interface CloseButtonProps {
+  top: string
+  right: string
+}
+
 export const Container = styled.div`
   position: fixed;
 
@@ -19,7 +24,6 @@ export const Container = styled.div`
 `
 export const Box = styled(motion.div)`
   width: 600px;
-  height: 600px;
 
   background: rgba(20, 20, 20, 1);
 
@@ -59,15 +63,19 @@ export const SendFile = styled.div`
 
   label {
     cursor: pointer;
-    margin-right: 5px;
+    margin: 0 15px;
   }
 `
 
-export const CloseButton = styled.button`
+export const CloseButton = styled.button<CloseButtonProps>`
   position: absolute;
 
-  top: 12px;
-  right: 12px;
+  // @ts-ignore
+  top: ${(props) => props.top};
+  right: ${(props) => props.right};
+
+  /* top: 12px;
+  right: 12px; */
 
   &:hover {
     filter: brightness(1.2);
@@ -89,19 +97,25 @@ export const Profile = styled.div`
   }
 `
 
+export const ImageArea = styled.div`
+  position: relative;
+  width: 200px;
+`
+
 export const Content = styled.textarea`
   background: transparent;
   font-size: 20px;
   padding: 5px 20px;
   border: 0;
   width: 100%;
-  height: 63%;
+  height: 200px;
   resize: none;
 `
 
 export const SubmitArea = styled.div`
   padding: 0 20px;
   width: 100%;
+  margin: 5px 0 20px 0;
 `
 
 export const SubmitButton = styled.button`

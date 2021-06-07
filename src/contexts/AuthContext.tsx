@@ -88,7 +88,7 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
         Router.push('/home')
 
         setCookie(undefined, 'mydiary-token', api.defaults.headers.Authorization, {
-          maxAge: 60 * 60 * 1 // 1 hour
+          maxAge: 60 * 60 * 24 // 1 day
         })
       })
       .catch((err: Error | AxiosError) => {

@@ -68,14 +68,13 @@ const NewPostModal: React.FC = () => {
               <BsImage size={30} />
             </label>
             <ReactTooltip textColor="white" backgroundColor="gray" effect="solid" />
-            {/* {srcImage && (
-              <MdClose
-                style={{ cursor: 'pointer' }}
-                onClick={deleteFile}
-                size={22}
-              />
-            )} */}
-            <input onChange={verifyFile} ref={fileRef} id="file" type="file" />
+            <input
+              onChange={verifyFile}
+              ref={fileRef}
+              id="file"
+              type="file"
+              accept="image/png, image/jpg"
+            />
           </SendFile>
         </SubHeader>
         <Content

@@ -8,6 +8,27 @@ export default createGlobalStyle`
     outline: none;
     font-family: 'Exo 2', sans-serif;
     color: var(--text-primary);
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 10px;
+
+      &:hover {
+        background: rgba(117, 63, 252, 0.8);
+      }
+    }
   }
 
   button {

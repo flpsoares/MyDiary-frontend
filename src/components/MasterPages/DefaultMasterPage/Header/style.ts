@@ -11,9 +11,9 @@ export const Container = styled.div`
 
   position: fixed;
   height: 80px;
-  width: calc(100% - 321px);
+  width: calc(100% - 310px);
 
-  right: 21px;
+  right: 10px;
 
   display: flex;
   align-items: center;

@@ -17,7 +17,7 @@ import { BsImage } from 'react-icons/bs'
 import ReactTooltip from 'react-tooltip'
 
 import Image from 'next/image'
-import { ChangeEvent, useContext, useRef, useState } from 'react'
+import { ChangeEvent, FormEvent, useContext, useRef, useState } from 'react'
 import { PostContext } from '../../contexts/PostContext'
 import { AuthContext } from '../../contexts/AuthContext'
 import PostApi from '../../services/api/PostApi'
@@ -27,17 +27,6 @@ const NewPostModal: React.FC = () => {
   const { user } = useContext(AuthContext)
 
   const contentRef = useRef<HTMLTextAreaElement>()
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    if (contentRef.current.value.length > 0) {
-      PostApi.create({ content: contentRef.current.value }).then(() => {
-        closeModalPost()
-      })
-    }
-  }
-
   const fileRef = useRef<HTMLInputElement>()
 
   const [srcImage, setSrcImage] = useState('')
@@ -46,6 +35,29 @@ const NewPostModal: React.FC = () => {
     if (e.target.files) {
       const [file] = Array.from(fileRef.current.files)
       setSrcImage(URL.createObjectURL(file))
+    }
+  }
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+
+    if (contentRef.current.value.length > 0 && fileRef.current.value.length > 0) {
+      const filename = fileRef.current.files[0].name
+      const image = fileRef.current.files[0]
+
+      PostApi.createWithImage({
+        content: contentRef.current.value,
+        image: image,
+        filename: filename
+      }).then(() => {
+        closeModalPost()
+      })
+    }
+
+    if (contentRef.current.value.length > 0 && fileRef.current.value.length === 0) {
+      PostApi.create({ content: contentRef.current.value }).then(() => {
+        closeModalPost()
+      })
     }
   }
 
@@ -72,6 +84,7 @@ const NewPostModal: React.FC = () => {
               onChange={verifyFile}
               ref={fileRef}
               id="file"
+              name="file"
               type="file"
               accept="image/png, image/jpg"
             />
@@ -90,7 +103,9 @@ const NewPostModal: React.FC = () => {
           </ImageArea>
         )}
         <SubmitArea>
-          <SubmitButton onClick={handleSubmit}>Post</SubmitButton>
+          <SubmitButton type="submit" onClick={handleSubmit}>
+            Post
+          </SubmitButton>
         </SubmitArea>
         <CloseButton onClick={closeModalPost} top="12px" right="12px" type="button">
           <MdClose size={22} />

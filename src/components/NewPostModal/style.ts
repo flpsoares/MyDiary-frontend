@@ -22,7 +22,7 @@ export const Container = styled.div`
 
   background: rgba(0, 0, 0, 0.6);
 `
-export const Box = styled(motion.div)`
+export const Box = styled(motion.form)`
   width: 600px;
 
   background: rgba(20, 20, 20, 1);
@@ -70,12 +70,8 @@ export const SendFile = styled.div`
 export const CloseButton = styled.button<CloseButtonProps>`
   position: absolute;
 
-  // @ts-ignore
   top: ${(props) => props.top};
   right: ${(props) => props.right};
-
-  /* top: 12px;
-  right: 12px; */
 
   &:hover {
     filter: brightness(1.2);

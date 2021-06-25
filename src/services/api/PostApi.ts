@@ -14,6 +14,21 @@ class PostApi {
       })
   }
 
+  public async createWithImage({ content, image, filename }) {
+    const formData = new FormData()
+    formData.append('content', content)
+    formData.append('image', image)
+    formData.append('filename', filename)
+
+    return api
+      .post<App.Post>('post', formData)
+      .then((res) => res.data)
+      .then((post) => {
+        PostsCollection.set(post)
+        return post
+      })
+  }
+
   public async list() {
     return api
       .get<App.Post[]>('posts')

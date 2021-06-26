@@ -39,4 +39,12 @@ export const Header = styled.div`
 
 export const Content = styled.div`
   margin-top: 15px;
+
+  img {
+    width: 100%;
+    max-height: 600px;
+    margin-top: 20px;
+    object-fit: contain;
+    cursor: pointer;
+  }
 `

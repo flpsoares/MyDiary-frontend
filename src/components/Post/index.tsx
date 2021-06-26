@@ -25,9 +25,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
       </Header>
       <Content>
         <span>{post.content}</span>
-        <div>
-          <img src={post.image?.url} alt={post.image.filename} />
-        </div>
+        {post.image && <img src={post.image.url} alt={post.image.filename} />}
       </Content>
     </Container>
   )

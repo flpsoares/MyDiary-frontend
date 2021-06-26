@@ -17,7 +17,8 @@ export const Header: React.FC = () => {
       <span>{user?.username}</span>
       <Image
         onClick={goToProfile}
-        src="/assets/profile.jpg"
+        src={user?.image ? user.image.url : '/assets/profile.jpg'}
+        // src="/assets/profile.jpg"
         alt="profile"
         width={50}
         height={50}

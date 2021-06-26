@@ -21,10 +21,10 @@ export const Header = styled.div`
     border-radius: 50%;
     cursor: pointer;
 
-    transition: filter 0.2s;
+    transition: filter 0.1s;
 
     &:hover {
-      filter: brightness(0.9);
+      filter: brightness(0.4);
     }
   }
 
@@ -56,5 +56,26 @@ export const HeaderProfile = styled.div`
     span:nth-child(2) {
       font-size: 16px;
     }
+  }
+`
+
+export const ImageProfile = styled.div`
+  position: relative;
+  border: 5px solid var(--dark);
+
+  border-radius: 50%;
+
+  transition: transform 0.1s;
+
+  &.isClicking {
+    transform: scale(0.9);
+  }
+
+  span {
+    font-size: 20px;
+    position: absolute;
+    left: 22px;
+    cursor: pointer;
+    pointer-events: none;
   }
 `

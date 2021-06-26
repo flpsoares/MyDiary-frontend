@@ -72,7 +72,7 @@ const NewPostModal: React.FC = () => {
         <Header>Create Post</Header>
         <SubHeader>
           <Profile>
-            <Image src="/assets/profile.jpg" alt="profile" width={50} height={50} />
+            <Image src={user.image.url} alt="profile" width={50} height={50} />
             <span>{user.username}</span>
           </Profile>
           <SendFile>
@@ -107,7 +107,7 @@ const NewPostModal: React.FC = () => {
             Post
           </SubmitButton>
         </SubmitArea>
-        <CloseButton onClick={closeModalPost} top="12px" right="12px" type="button">
+        <CloseButton onClick={closeModalPost} top="24px" right="12px" type="button">
           <MdClose size={22} />
         </CloseButton>
       </Box>

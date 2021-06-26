@@ -2,22 +2,28 @@ import { Container, Header, Content } from './style'
 
 import Image from 'next/image'
 import Router from 'next/router'
+import { AuthContext } from '../../contexts/AuthContext'
+import { useContext } from 'react'
 
 interface PostProps {
   post: App.Post
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
+  const { user } = useContext(AuthContext)
+
   const goToProfile = () => {
     Router.push('/profile')
   }
+
   return (
     <Container>
       <Header>
         <Image
           onClick={goToProfile}
-          src="/assets/profile.jpg"
+          src={post.user.image ? post.user.image.url : '/assets/profile.jpg'}
           alt="profile"
+          objectFit="cover"
           width={50}
           height={50}
         />

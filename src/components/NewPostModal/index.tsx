@@ -18,12 +18,12 @@ import ReactTooltip from 'react-tooltip'
 
 import Image from 'next/image'
 import { ChangeEvent, FormEvent, useContext, useRef, useState } from 'react'
-import { PostContext } from '../../contexts/PostContext'
+import { ModalContext } from '../../contexts/ModalContext'
 import { AuthContext } from '../../contexts/AuthContext'
 import PostApi from '../../services/api/PostApi'
 
 const NewPostModal: React.FC = () => {
-  const { closeModalPost } = useContext(PostContext)
+  const { closePostModal } = useContext(ModalContext)
   const { user } = useContext(AuthContext)
 
   const contentRef = useRef<HTMLTextAreaElement>()
@@ -50,13 +50,13 @@ const NewPostModal: React.FC = () => {
         image: image,
         filename: filename
       }).then(() => {
-        closeModalPost()
+        closePostModal()
       })
     }
 
     if (contentRef.current.value.length > 0 && fileRef.current.value.length === 0) {
       PostApi.create({ content: contentRef.current.value }).then(() => {
-        closeModalPost()
+        closePostModal()
       })
     }
   }
@@ -112,7 +112,7 @@ const NewPostModal: React.FC = () => {
             Post
           </SubmitButton>
         </SubmitArea>
-        <CloseButton onClick={closeModalPost} top="24px" right="12px" type="button">
+        <CloseButton onClick={closePostModal} top="24px" right="12px" type="button">
           <MdClose size={22} />
         </CloseButton>
       </Box>

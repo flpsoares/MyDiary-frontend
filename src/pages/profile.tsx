@@ -6,7 +6,7 @@ import { parseCookies } from 'nookies'
 
 import ReactTooltip from 'react-tooltip'
 
-import { useContext, useState, useEffect, useMemo } from 'react'
+import { useContext, useState } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
 import Image from 'next/image'
 
@@ -16,7 +16,6 @@ const Profile: React.FC = () => {
   const { user } = useContext(AuthContext)
 
   const [isHover, setIsHover] = useState(false)
-  const [isClicking, setIsClicking] = useState(false)
 
   return (
     <DefaultMasterPage title="Profile">

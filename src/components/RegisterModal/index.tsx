@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from 'react'
 import { RiCloseLine } from 'react-icons/ri'
-import { RegisterModalContext } from '../../contexts/RegisterModalContext'
+import { ModalContext } from '../../contexts/ModalContext'
 
 import CustomInput from '../CustomInput'
 import { Container, Box, Title, AuthButton, CloseButton } from './style'
@@ -14,7 +14,7 @@ import AlertEvents from '../../events/AlertEvents'
 import { AuthContext } from '../../contexts/AuthContext'
 
 export const RegisterModal: React.FC = () => {
-  const { closeModal } = useContext(RegisterModalContext)
+  const { closeRegisterModal } = useContext(ModalContext)
   const { signUp } = useContext(AuthContext)
 
   const { registerErrorMessage } = useAlertError()
@@ -53,7 +53,7 @@ export const RegisterModal: React.FC = () => {
         animate={{ scale: 1 }}
         exit={{ scale: 0 }}
       >
-        <CloseButton onClick={closeModal}>
+        <CloseButton onClick={closeRegisterModal}>
           <RiCloseLine />
         </CloseButton>
         <Title>Create account on MyDiary</Title>

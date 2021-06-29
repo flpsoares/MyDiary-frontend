@@ -10,7 +10,7 @@ import CustomInput from '../components/CustomInput'
 import RegisterModal from '../components/RegisterModal'
 import Alert from '../components/Alert'
 
-import { RegisterModalContext } from '../contexts/RegisterModalContext'
+import { ModalContext } from '../contexts/ModalContext'
 import { AuthContext } from '../contexts/AuthContext'
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
@@ -19,7 +19,7 @@ import { AnimatePresence } from 'framer-motion'
 export const Auth: React.FC = () => {
   const { loginErrorMessage } = useAlertError()
 
-  const { openModal, isOpen } = useContext(RegisterModalContext)
+  const { openRegisterModal, modalRegisterIsOpen } = useContext(ModalContext)
   const { signIn } = useContext(AuthContext)
 
   const [isLoading, setIsLoading] = useState(false)
@@ -46,7 +46,7 @@ export const Auth: React.FC = () => {
       <Head>
         <title>MyDiary | Login</title>
       </Head>
-      <AnimatePresence>{isOpen && <RegisterModal />}</AnimatePresence>
+      <AnimatePresence>{modalRegisterIsOpen && <RegisterModal />}</AnimatePresence>
       <Title>Sign In</Title>
       <Box>
         {loginErrorMessage && <Alert message={loginErrorMessage} />}
@@ -61,7 +61,7 @@ export const Auth: React.FC = () => {
           <AuthButton type="submit">Sign In</AuthButton>
           <Question>
             <span>New on MyDiary?</span>
-            <button type="button" onClick={openModal}>
+            <button type="button" onClick={openRegisterModal}>
               Create account
             </button>
           </Question>

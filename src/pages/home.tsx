@@ -8,13 +8,13 @@ import Post from '../components/Post'
 
 import { HiPlus } from 'react-icons/hi'
 import { useContext, useEffect } from 'react'
-import { PostContext } from '../contexts/PostContext'
+import { ModalContext } from '../contexts/ModalContext'
 import PostApi from '../services/api/PostApi'
 import PostsCollection from '../services/collections/PostsCollection'
 import { useCollection } from '../hooks/useCollection'
 
 const Home: React.FC = () => {
-  const { openModalPost } = useContext(PostContext)
+  const { openPostModal } = useContext(ModalContext)
 
   const { items } = useCollection(PostsCollection)
 
@@ -25,7 +25,7 @@ const Home: React.FC = () => {
   return (
     <DefaultMasterPage title="Home">
       <Container>
-        <NewPostButton onClick={openModalPost}>
+        <NewPostButton onClick={openPostModal}>
           <HiPlus size={20} />
           <span>New Post</span>
         </NewPostButton>

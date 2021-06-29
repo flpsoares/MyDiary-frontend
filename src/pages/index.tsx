@@ -10,7 +10,7 @@ import { parseCookies } from 'nookies'
 import { useContext, useEffect } from 'react'
 import Router from 'next/router'
 import NewPostModal from '../components/NewPostModal'
-import { PostContext } from '../contexts/PostContext'
+import { ModalContext } from '../contexts/ModalContext'
 import { AnimatePresence } from 'framer-motion'
 
 interface MainProps {
@@ -24,7 +24,7 @@ export const Main: React.FC<MainProps> = ({ title, children }) => {
     }
   }, [])
 
-  const { modalPostIsOpen } = useContext(PostContext)
+  const { modalPostIsOpen } = useContext(ModalContext)
 
   return (
     <Container>

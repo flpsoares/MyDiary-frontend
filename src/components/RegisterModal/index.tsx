@@ -47,7 +47,12 @@ export const RegisterModal: React.FC = () => {
 
   return (
     <Container>
-      <Box initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
+      <Box
+        onSubmit={handleSubmit}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0 }}
+      >
         <CloseButton onClick={closeModal}>
           <RiCloseLine />
         </CloseButton>
@@ -63,7 +68,7 @@ export const RegisterModal: React.FC = () => {
           />
           <CustomInput inputRef={emailRef} label="Email" />
         </div>
-        <AuthButton onClick={handleSubmit}>Sign Up</AuthButton>
+        <AuthButton type="submit">Sign Up</AuthButton>
       </Box>
       {isLoading && <ReactLoading />}
     </Container>

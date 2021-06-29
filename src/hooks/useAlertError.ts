@@ -7,11 +7,15 @@ export function useAlertError() {
   const [registerErrorMessage, setRegisterErrorMessage] = useState<string>()
 
   useEffect(() => {
-    AlertError.on('currentLoginError', setLoginErrorMessage)
-    AlertError.on('currentRegisterError', setRegisterErrorMessage)
+    AlertError.on('currentLoginError', (message) => setLoginErrorMessage(message))
+    AlertError.on('currentRegisterError', (message) =>
+      setRegisterErrorMessage(message)
+    )
     return () => {
-      AlertError.off('currentLoginError', setLoginErrorMessage)
-      AlertError.off('currentRegisterError', setRegisterErrorMessage)
+      AlertError.off('currentLoginError', (message) => setLoginErrorMessage(message))
+      AlertError.off('currentRegisterError', (message) =>
+        setRegisterErrorMessage(message)
+      )
     }
   }, [])
 

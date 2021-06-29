@@ -72,7 +72,12 @@ const NewPostModal: React.FC = () => {
         <Header>Create Post</Header>
         <SubHeader>
           <Profile>
-            <Image src={user.image.url} alt="profile" width={50} height={50} />
+            <Image
+              src={user.image?.url ? user.image.url : '/assets/profile.jpg'}
+              alt="profile"
+              width={50}
+              height={50}
+            />
             <span>{user.username}</span>
           </Profile>
           <SendFile>

@@ -50,7 +50,7 @@ export const Auth: React.FC = () => {
       <Title>Sign In</Title>
       <Box>
         {loginErrorMessage && <Alert message={loginErrorMessage} />}
-        <form method="post">
+        <form onSubmit={handleSubmit} method="post">
           <CustomInput inputRef={usernameRef} label="Username" />
           <CustomInput
             inputRef={passwordRef}
@@ -58,7 +58,7 @@ export const Auth: React.FC = () => {
             isPassword
             forgotPassword
           />
-          <AuthButton onClick={handleSubmit}>Sign In</AuthButton>
+          <AuthButton type="submit">Sign In</AuthButton>
           <Question>
             <span>New on MyDiary?</span>
             <button type="button" onClick={openModal}>

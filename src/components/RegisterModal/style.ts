@@ -16,7 +16,7 @@ export const Container = styled.div`
   flex-direction: column;
 `
 
-export const Box = styled(motion.div)`
+export const Box = styled(motion.form)`
   width: 500px;
   border-radius: 5px;
   background: #161b22;

@@ -1,4 +1,4 @@
-import { createContext, EventHandler, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useState } from 'react'
 
 interface PostContextData {
   modalPostIsOpen: boolean

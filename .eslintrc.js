@@ -25,6 +25,7 @@ module.exports = {
     'no-useless-constructor': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/no-children-prop': 'off',
-    'space-before-function-paren': 'off'
+    'space-before-function-paren': 'off',
+    'multiline-ternary': 'off'
   }
 }

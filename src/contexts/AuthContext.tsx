@@ -10,6 +10,7 @@ type User = Partial<App.User>
 interface AuthContextData {
   isAuthenticated: boolean
   user: User
+  setUserAvatar: (image: File, filename: string) => Promise<void>
   signUp: ({ username, password, email }: User) => Promise<void>
   signIn: ({ username, password }: User) => Promise<void>
   logOut: () => void
@@ -22,6 +23,7 @@ export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider({ children }: AuthContextProviderProps) {
   const [user, setUser] = useState<User>(null)
+
   const isAuthenticated = useMemo(() => !!user, [user])
 
   useEffect(() => {
@@ -32,42 +34,6 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
       setProfile()
     }
   }, [])
-
-  async function signUp({ username, password, email }: User) {
-    const data = {
-      username: username,
-      password: password,
-      email: null
-    }
-
-    await api
-      .post('user', {
-        username,
-        password,
-        email
-      })
-      .then(() => {
-        signIn(data)
-        Router.push('/home')
-      })
-      .catch((err: Error | AxiosError) => {
-        if (axios.isAxiosError(err)) {
-          AlertEvents.emit(
-            'currentRegisterError',
-            err.response.data.errors[0].message
-          )
-        } else {
-          AlertEvents.emit('currentRegisterError', 'Internal Error')
-        }
-      })
-  }
-
-  async function setProfile() {
-    return api
-      .get('auth/getuser')
-      .then((res) => res.data)
-      .then((user) => setUser(user))
-  }
 
   async function signIn({ username, password }: User) {
     const user = {
@@ -100,13 +66,77 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
       })
   }
 
+  async function signUp({ username, password, email }: User) {
+    const data = {
+      username: username,
+      password: password,
+      email: null
+    }
+
+    try {
+      await api.post('user', {
+        username,
+        password,
+        email
+      })
+
+      signIn(data)
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        AlertEvents.emit('currentRegisterError', err.response.data.errors[0].message)
+      } else {
+        AlertEvents.emit('currentRegisterError', 'Internal Error')
+      }
+    }
+  }
+
   async function logOut() {
     destroyCookie(undefined, 'mydiary-token')
     Router.push('/auth')
   }
 
+  async function setUserAvatar(image: File, filename: string) {
+    const formData = new FormData()
+
+    formData.append('image', image)
+    formData.append('filename', filename)
+
+    await api
+      .put('user', formData)
+      .then((res) => res.data)
+      .then(() => {
+        Router.push('/home')
+      })
+      .catch((err: Error | AxiosError) => {
+        if (axios.isAxiosError(err)) {
+          AlertEvents.emit(
+            'currentRegisterError',
+            err.response.data.errors[0].message
+          )
+        } else {
+          AlertEvents.emit('currentRegisterError', 'Internal Error')
+        }
+      })
+  }
+
+  async function setProfile() {
+    return api
+      .get('auth/getuser')
+      .then((res) => res.data)
+      .then((user) => setUser(user))
+  }
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signUp, signIn, user, logOut }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        signUp,
+        signIn,
+        user,
+        logOut,
+        setUserAvatar
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

@@ -15,12 +15,18 @@ import { AuthContext } from '../contexts/AuthContext'
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
 import { AnimatePresence } from 'framer-motion'
+import ChooseAvatarModal from '../components/ChooseAvatarModal'
+import UserApi from '../services/api/UserApi'
+
+import Route from 'next/router'
 
 export const Auth: React.FC = () => {
   const { loginErrorMessage } = useAlertError()
 
-  const { openRegisterModal, modalRegisterIsOpen } = useContext(ModalContext)
-  const { signIn } = useContext(AuthContext)
+  const { openRegisterModal, modalRegisterIsOpen, modalChooseIsOpen } =
+    useContext(ModalContext)
+
+  const { setUser } = useContext(AuthContext)
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -36,9 +42,17 @@ export const Auth: React.FC = () => {
       password: passwordRef.current.value
     }
 
-    signIn(data).finally(() => {
+    UserApi.auth(data).finally(() => {
       setIsLoading(false)
+      setUser(data)
+      if (!modalChooseIsOpen) {
+        Route.push('/home')
+      }
     })
+
+    // signIn(data).finally(() => {
+    //   setIsLoading(false)
+    // })
   }
 
   return (
@@ -47,6 +61,7 @@ export const Auth: React.FC = () => {
         <title>MyDiary | Login</title>
       </Head>
       <AnimatePresence>{modalRegisterIsOpen && <RegisterModal />}</AnimatePresence>
+      <AnimatePresence>{modalChooseIsOpen && <ChooseAvatarModal />}</AnimatePresence>
       <Title>Sign In</Title>
       <Box>
         {loginErrorMessage && <Alert message={loginErrorMessage} />}

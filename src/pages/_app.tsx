@@ -6,12 +6,12 @@ import { ModalProvider } from '../contexts/ModalContext'
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <AuthProvider>
-        <ModalProvider>
+      <ModalProvider>
+        <AuthProvider>
           <GlobalStyle />
           <Component {...pageProps} />
-        </ModalProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </ModalProvider>
     </>
   )
 }

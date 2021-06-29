@@ -1,19 +1,16 @@
 import { createContext, ReactNode, useEffect, useMemo, useState } from 'react'
-import AlertEvents from '../events/AlertEvents'
+import { parseCookies } from 'nookies'
+
 import { api } from '../services/api'
-import axios, { AxiosError } from 'axios'
-import { setCookie, parseCookies, destroyCookie } from 'nookies'
-import Router from 'next/router'
+
+import UserApi from '../services/api/UserApi'
 
 type User = Partial<App.User>
 
 interface AuthContextData {
   isAuthenticated: boolean
   user: User
-  setUserAvatar: (image: File, filename: string) => Promise<void>
-  signUp: ({ username, password, email }: User) => Promise<void>
-  signIn: ({ username, password }: User) => Promise<void>
-  logOut: () => void
+  setUser: (User: User) => void
 }
 
 interface AuthContextProviderProps {
@@ -31,110 +28,16 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
 
     if (token) {
       api.defaults.headers.Authorization = token
-      setProfile()
+      UserApi.getUser().then((user) => setUser(user))
     }
   }, [])
-
-  async function signIn({ username, password }: User) {
-    const user = {
-      username,
-      password
-    }
-
-    await api
-      .post('auth', {
-        username,
-        password
-      })
-      .then((res) => {
-        api.defaults.headers.Authorization = `Bearer ${res.data.token}`
-      })
-      .then(() => {
-        setUser(user)
-        Router.push('/home')
-
-        setCookie(undefined, 'mydiary-token', api.defaults.headers.Authorization, {
-          maxAge: 60 * 60 * 24 // 1 day
-        })
-      })
-      .catch((err: Error | AxiosError) => {
-        if (axios.isAxiosError(err)) {
-          AlertEvents.emit('currentLoginError', err.response.data.errors[0].message)
-        } else {
-          AlertEvents.emit('currentLoginError', 'Internal Error')
-        }
-      })
-  }
-
-  async function signUp({ username, password, email }: User) {
-    const data = {
-      username: username,
-      password: password,
-      email: null
-    }
-
-    try {
-      await api.post('user', {
-        username,
-        password,
-        email
-      })
-
-      signIn(data)
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        AlertEvents.emit('currentRegisterError', err.response.data.errors[0].message)
-      } else {
-        AlertEvents.emit('currentRegisterError', 'Internal Error')
-      }
-    }
-  }
-
-  async function logOut() {
-    destroyCookie(undefined, 'mydiary-token')
-    Router.push('/auth')
-  }
-
-  async function setUserAvatar(image: File, filename: string) {
-    const formData = new FormData()
-
-    formData.append('image', image)
-    formData.append('filename', filename)
-
-    await api
-      .put('user', formData)
-      .then((res) => res.data)
-      .then(() => {
-        Router.push('/home')
-      })
-      .catch((err: Error | AxiosError) => {
-        if (axios.isAxiosError(err)) {
-          AlertEvents.emit(
-            'currentRegisterError',
-            err.response.data.errors[0].message
-          )
-        } else {
-          AlertEvents.emit('currentRegisterError', 'Internal Error')
-        }
-      })
-  }
-
-  async function setProfile() {
-    return api
-      .get('auth/getuser')
-      .then((res) => res.data)
-      .then((user) => setUser(user))
-  }
 
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        signUp,
-        signIn,
         user,
-        logOut,
-        setUserAvatar
+        setUser
       }}
     >
       {children}

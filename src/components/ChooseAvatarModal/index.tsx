@@ -1,14 +1,13 @@
 import { Container, Box, Title, ProfileImage, ChooseButtonArea } from './style'
 
-import { ChangeEvent, useContext, useRef, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 
 import { BsImage } from 'react-icons/bs'
-import { AuthContext } from '../../contexts/AuthContext'
 
 import Route from 'next/router'
+import UserApi from '../../services/api/UserApi'
 
 const ChooseAvatarModal: React.FC = () => {
-  const { setUserAvatar } = useContext(AuthContext)
   const fileRef = useRef<HTMLInputElement>()
   const [srcImage, setSrcImage] = useState('')
 
@@ -33,7 +32,7 @@ const ChooseAvatarModal: React.FC = () => {
     const image = fileRef.current.files[0]
     const filename = fileRef.current.files[0].name
 
-    setUserAvatar(image, filename)
+    UserApi.setAvatar(image, filename).then(() => Route.push('/home'))
   }
 
   const moveToHome = () => {

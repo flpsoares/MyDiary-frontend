@@ -1,7 +1,7 @@
 import { Container } from './style'
 
 import Link from 'next/link'
-import UserApi from '../../../../services/api/UserApi'
+import AuthResource from '../../../../services/resources/AuthResource'
 
 const SideBar: React.FC = () => {
   return (
@@ -17,7 +17,7 @@ const SideBar: React.FC = () => {
           <li>Settings</li>
         </Link>
       </ul>
-      <button type="button" onClick={UserApi.logOut}>
+      <button type="button" onClick={() => AuthResource.logOut()}>
         Log out
       </button>
     </Container>

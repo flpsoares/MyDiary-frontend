@@ -3,7 +3,7 @@ import { setCookie, destroyCookie } from 'nookies'
 import axios, { AxiosError } from 'axios'
 import AlertEvents from '../../events/AlertEvents'
 
-import Route from 'next/router'
+import { Credentials, Token } from '../resources/AuthResource'
 
 class UserApi {
   public async create({ username, password, email }: Partial<App.User>) {
@@ -16,32 +16,13 @@ class UserApi {
       .then((res) => res.data)
   }
 
-  public async auth({ username, password }: Partial<App.User>) {
+  public async auth({ username, password }: Credentials) {
     return api
-      .post('auth', {
+      .post<Token>('auth', {
         username,
         password
       })
-      .then((res) => {
-        api.defaults.headers.Authorization = `Bearer ${res.data.token}`
-      })
-      .then(() => {
-        setCookie(undefined, 'mydiary-token', api.defaults.headers.Authorization, {
-          maxAge: 60 * 60 * 24 // 1 day
-        })
-      })
-      .catch((err: Error | AxiosError) => {
-        if (axios.isAxiosError(err)) {
-          AlertEvents.emit('currentLoginError', err.response.data.errors[0].message)
-        } else {
-          AlertEvents.emit('currentLoginError', 'Internal Error')
-        }
-      })
-  }
-
-  public async logOut() {
-    destroyCookie(undefined, 'mydiary-token')
-    Route.push('/auth')
+      .then((res) => res.data)
   }
 
   public async setAvatar(image: File, filename: string) {
@@ -66,7 +47,7 @@ class UserApi {
   }
 
   public async getUser() {
-    return api.get('auth/getuser').then((res) => res.data)
+    return api.get<App.User>('auth/getuser').then((res) => res.data)
   }
 }
 

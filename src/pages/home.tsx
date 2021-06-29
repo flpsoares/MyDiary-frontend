@@ -1,5 +1,4 @@
 import { GetServerSideProps } from 'next'
-import { parseCookies } from 'nookies'
 
 import DefaultMasterPage from '../components/MasterPages/DefaultMasterPage'
 
@@ -12,6 +11,7 @@ import { ModalContext } from '../contexts/ModalContext'
 import PostApi from '../services/api/PostApi'
 import PostsCollection from '../services/collections/PostsCollection'
 import { useCollection } from '../hooks/useCollection'
+import AuthResource from '../services/resources/AuthResource'
 
 const Home: React.FC = () => {
   const { openPostModal } = useContext(ModalContext)
@@ -40,15 +40,10 @@ const Home: React.FC = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { 'mydiary-token': token } = parseCookies(ctx)
+  const redirect = await AuthResource.redirectIfNotAuthenticated(ctx)
 
-  if (!token) {
-    return {
-      redirect: {
-        destination: '/auth',
-        permanent: false
-      }
-    }
+  if (redirect) {
+    return { redirect }
   }
 
   return {

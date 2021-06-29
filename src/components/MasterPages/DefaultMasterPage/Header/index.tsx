@@ -1,12 +1,11 @@
 import { Container } from './style'
 
 import Image from 'next/image'
-import { useContext } from 'react'
-import { AuthContext } from '../../../../contexts/AuthContext'
 import Router from 'next/router'
+import { useAuth } from '../../../../hooks/useAuth'
 
 export const Header: React.FC = () => {
-  const { user } = useContext(AuthContext)
+  const { auth } = useAuth()
 
   const goToProfile = () => {
     Router.push('/profile')
@@ -14,10 +13,10 @@ export const Header: React.FC = () => {
 
   return (
     <Container>
-      <span>{user?.username}</span>
+      <span>{auth?.username}</span>
       <Image
         onClick={goToProfile}
-        src={user?.image ? user.image.url : '/assets/profile.jpg'}
+        src={auth?.image ? auth.image.url : '/assets/profile.jpg'}
         alt="profile"
         width={50}
         height={50}

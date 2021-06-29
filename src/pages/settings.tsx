@@ -1,22 +1,17 @@
 import { Container } from '../styles/settings'
 import DefaultMasterPage from '../components/MasterPages/DefaultMasterPage'
 import { GetServerSideProps } from 'next'
-import { parseCookies } from 'nookies'
+import AuthResource from '../services/resources/AuthResource'
 
 const Settings: React.FC = () => {
   return <DefaultMasterPage title="Settings">Settings</DefaultMasterPage>
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { 'mydiary-token': token } = parseCookies(ctx)
+  const redirect = await AuthResource.redirectIfNotAuthenticated(ctx)
 
-  if (!token) {
-    return {
-      redirect: {
-        destination: '/auth',
-        permanent: false
-      }
-    }
+  if (redirect) {
+    return { redirect }
   }
 
   return {

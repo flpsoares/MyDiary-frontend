@@ -19,12 +19,12 @@ import ReactTooltip from 'react-tooltip'
 import Image from 'next/image'
 import { ChangeEvent, FormEvent, useContext, useRef, useState } from 'react'
 import { ModalContext } from '../../contexts/ModalContext'
-import { AuthContext } from '../../contexts/AuthContext'
 import PostApi from '../../services/api/PostApi'
+import { useAuth } from '../../hooks/useAuth'
 
 const NewPostModal: React.FC = () => {
   const { closePostModal } = useContext(ModalContext)
-  const { user } = useContext(AuthContext)
+  const { auth } = useAuth()
 
   const contentRef = useRef<HTMLTextAreaElement>()
   const fileRef = useRef<HTMLInputElement>()
@@ -73,12 +73,12 @@ const NewPostModal: React.FC = () => {
         <SubHeader>
           <Profile>
             <Image
-              src={user.image?.url ? user.image.url : '/assets/profile.jpg'}
+              src={auth.image?.url ? auth.image.url : '/assets/profile.jpg'}
               alt="profile"
               width={50}
               height={50}
             />
-            <span>{user.username}</span>
+            <span>{auth.username}</span>
           </Profile>
           <SendFile>
             <label data-tip="Foto" htmlFor="file">
@@ -97,7 +97,7 @@ const NewPostModal: React.FC = () => {
         </SubHeader>
         <Content
           ref={contentRef}
-          placeholder={`Type what you're thinking, ${user.username}`}
+          placeholder={`Type what you're thinking, ${auth.username}`}
         />
         {!!srcImage && (
           <ImageArea>

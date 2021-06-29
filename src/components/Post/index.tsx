@@ -2,7 +2,6 @@ import { Container, Header, Content } from './style'
 
 import Image from 'next/image'
 import Router from 'next/router'
-import { AuthContext } from '../../contexts/AuthContext'
 import { useContext } from 'react'
 
 interface PostProps {
@@ -10,8 +9,6 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
-  const { user } = useContext(AuthContext)
-
   const goToProfile = () => {
     Router.push('/profile')
   }

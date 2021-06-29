@@ -11,7 +11,6 @@ import RegisterModal from '../components/RegisterModal'
 import Alert from '../components/Alert'
 
 import { ModalContext } from '../contexts/ModalContext'
-import { AuthContext } from '../contexts/AuthContext'
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
 import { AnimatePresence } from 'framer-motion'
@@ -19,14 +18,13 @@ import ChooseAvatarModal from '../components/ChooseAvatarModal'
 import UserApi from '../services/api/UserApi'
 
 import Route from 'next/router'
+import AuthResource from '../services/resources/AuthResource'
 
 export const Auth: React.FC = () => {
   const { loginErrorMessage } = useAlertError()
 
   const { openRegisterModal, modalRegisterIsOpen, modalChooseIsOpen } =
     useContext(ModalContext)
-
-  const { setUser } = useContext(AuthContext)
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -42,17 +40,15 @@ export const Auth: React.FC = () => {
       password: passwordRef.current.value
     }
 
-    UserApi.auth(data).finally(() => {
-      setIsLoading(false)
-      setUser(data)
-      if (!modalChooseIsOpen) {
-        Route.push('/home')
-      }
-    })
-
-    // signIn(data).finally(() => {
-    //   setIsLoading(false)
-    // })
+    AuthResource.logIn(data)
+      .then((res) => {
+        if (!modalChooseIsOpen) {
+          Route.push('/home')
+        }
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   return (
@@ -65,7 +61,7 @@ export const Auth: React.FC = () => {
       <Title>Sign In</Title>
       <Box>
         {loginErrorMessage && <Alert message={loginErrorMessage} />}
-        <form onSubmit={handleSubmit} method="post">
+        <form onSubmit={handleSubmit}>
           <CustomInput inputRef={usernameRef} label="Username" />
           <CustomInput
             inputRef={passwordRef}
@@ -88,17 +84,6 @@ export const Auth: React.FC = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { 'mydiary-token': token } = parseCookies(ctx)
-
-  if (token) {
-    return {
-      redirect: {
-        destination: '/home',
-        permanent: false
-      }
-    }
-  }
-
   return {
     props: {}
   }

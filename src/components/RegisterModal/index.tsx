@@ -11,12 +11,11 @@ import ReactLoading from 'react-loading'
 
 import Alert from '../../components/Alert'
 import AlertEvents from '../../events/AlertEvents'
-import { AuthContext } from '../../contexts/AuthContext'
 import UserApi from '../../services/api/UserApi'
+import AuthResource from '../../services/resources/AuthResource'
 
 export const RegisterModal: React.FC = () => {
   const { closeRegisterModal, openChooseModal } = useContext(ModalContext)
-  const { setUser } = useContext(AuthContext)
 
   const { registerErrorMessage } = useAlertError()
 
@@ -41,12 +40,12 @@ export const RegisterModal: React.FC = () => {
     }
 
     setIsLoading(true)
-    UserApi.create(data).finally(() => {
-      UserApi.auth(data)
-      setUser(data)
-      setIsLoading(false)
-      openChooseModal()
-    })
+    UserApi.create(data)
+      .then(() => {
+        AuthResource.logIn(data)
+        openChooseModal()
+      })
+      .finally(() => setIsLoading(false))
   }
 
   return (

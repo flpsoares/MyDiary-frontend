@@ -1,13 +1,17 @@
 import { Container, Box, Title, ProfileImage, ChooseButtonArea } from './style'
 
-import { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent, useRef, useState, useContext } from 'react'
 
 import { BsImage } from 'react-icons/bs'
 
 import Route from 'next/router'
 import UserApi from '../../services/api/UserApi'
 
+import { ModalContext } from '../../contexts/ModalContext'
+
 const ChooseAvatarModal: React.FC = () => {
+  const { closeChooseModal } = useContext(ModalContext)
+
   const fileRef = useRef<HTMLInputElement>()
   const [srcImage, setSrcImage] = useState('')
 
@@ -33,9 +37,12 @@ const ChooseAvatarModal: React.FC = () => {
     const filename = fileRef.current.files[0].name
 
     UserApi.setAvatar(image, filename).then(() => Route.push('/home'))
+    closeChooseModal()
   }
 
   const moveToHome = () => {
+    // e.preventDefault()
+    closeChooseModal()
     Route.push('/home')
   }
 
@@ -64,9 +71,14 @@ const ChooseAvatarModal: React.FC = () => {
           <button
             onClick={handleSubmit}
             disabled={!srcImage}
+            type="submit"
             children="Yes, this photo was amazing"
           />
-          <button onClick={moveToHome} children="No, I will choose a photo later" />
+          <button
+            onClick={moveToHome}
+            type="button"
+            children="No, I will choose a photo later"
+          />
         </ChooseButtonArea>
       </Box>
     </Container>

@@ -13,6 +13,7 @@ import Alert from '../../components/Alert'
 import AlertEvents from '../../events/AlertEvents'
 import UserApi from '../../services/api/UserApi'
 import AuthResource from '../../services/resources/AuthResource'
+import axios, { AxiosError } from 'axios'
 
 export const RegisterModal: React.FC = () => {
   const { closeRegisterModal, openChooseModal } = useContext(ModalContext)
@@ -44,6 +45,16 @@ export const RegisterModal: React.FC = () => {
       .then(() => {
         AuthResource.logIn(data)
         openChooseModal()
+      })
+      .catch((err: Error | AxiosError) => {
+        if (axios.isAxiosError(err)) {
+          AlertEvents.emit(
+            'currentRegisterError',
+            err.response.data.errors[0].message
+          )
+        } else {
+          AlertEvents.emit('currentRegisterError', 'Internal Error')
+        }
       })
       .finally(() => setIsLoading(false))
   }

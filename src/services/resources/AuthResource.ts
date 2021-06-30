@@ -84,9 +84,7 @@ class AuthResource extends TypedEmitter<{
     this.token = { type: 'bearer', token }
 
     if (!ctx) {
-      const user = await this.getProfile()
-      console.log(this.token)
-      console.log(user)
+      await this.getProfile()
     }
   }
 

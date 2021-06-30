@@ -1,7 +1,4 @@
 import { api } from '../api'
-import { setCookie, destroyCookie } from 'nookies'
-import axios, { AxiosError } from 'axios'
-import AlertEvents from '../../events/AlertEvents'
 
 import { Credentials, Token } from '../resources/AuthResource'
 
@@ -31,19 +28,7 @@ class UserApi {
     formData.append('image', image)
     formData.append('filename', filename)
 
-    return api
-      .put('user', formData)
-      .then((res) => res.data)
-      .catch((err: Error | AxiosError) => {
-        if (axios.isAxiosError(err)) {
-          AlertEvents.emit(
-            'currentRegisterError',
-            err.response.data.errors[0].message
-          )
-        } else {
-          AlertEvents.emit('currentRegisterError', 'Internal Error')
-        }
-      })
+    return api.put('user', formData).then((res) => res.data)
   }
 
   public async getUser() {

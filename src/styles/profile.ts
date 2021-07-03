@@ -79,3 +79,11 @@ export const ImageProfile = styled.div`
     pointer-events: none;
   }
 `
+
+export const Content = styled.div`
+  margin-top: 160px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`

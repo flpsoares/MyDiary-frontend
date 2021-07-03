@@ -23,6 +23,5 @@ export const NewPostButton = styled.button`
 `
 
 export const PostArea = styled.div`
-  /* width: 100%; */
   margin-top: 20px;
 `

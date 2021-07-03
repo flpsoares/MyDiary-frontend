@@ -1,30 +1,34 @@
 import { Container, Header, Content } from './style'
 
 import Image from 'next/image'
-import Router from 'next/router'
-import { useContext } from 'react'
+import Route from 'next/router'
+import { useGetProfile } from '../../hooks/useGetProfile'
+import GetProfileEvents from '../../events/GetProfileEvents'
 
 interface PostProps {
   post: App.Post
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
-  const goToProfile = () => {
-    Router.push('/profile')
+  const { user } = useGetProfile()
+
+  const getProfile = async () => {
+    GetProfileEvents.emit('getUserProfile', post.user.username)
+    Route.push(`/${user}`)
   }
 
   return (
     <Container>
       <Header>
         <Image
-          onClick={goToProfile}
+          onClick={getProfile}
           src={post.user.image ? post.user.image.url : '/assets/profile.jpg'}
           alt="profile"
           objectFit="cover"
           width={50}
           height={50}
         />
-        <span onClick={goToProfile}>{post.user.username}</span>
+        <span onClick={getProfile}>{post.user.username}</span>
       </Header>
       <Content>
         <span>{post.content}</span>

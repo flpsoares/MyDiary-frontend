@@ -6,6 +6,8 @@ import {
   Content
 } from '../styles/profile'
 
+import { useRouter } from 'next/router'
+
 import DefaultMasterPage from '../components/MasterPages/DefaultMasterPage'
 import { GetServerSideProps } from 'next'
 
@@ -29,6 +31,8 @@ const Profile: React.FC = () => {
   const [isHover, setIsHover] = useState(false)
 
   const { items } = useCollection(PostsCollection)
+
+  const router = useRouter()
 
   useEffect(() => {
     PostApi.list()
@@ -65,12 +69,7 @@ const Profile: React.FC = () => {
             </button>
           </HeaderProfile>
         </Header>
-        <Content>
-          {' '}
-          {items.map((post) => {
-            return <Post key={post.id} post={post} />
-          })}
-        </Content>
+        <Content>{router?.query.slug}</Content>
       </Container>
     </DefaultMasterPage>
   )

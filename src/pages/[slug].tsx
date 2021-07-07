@@ -10,9 +10,6 @@ import { useRouter } from 'next/router'
 
 import DefaultMasterPage from '../components/MasterPages/DefaultMasterPage'
 import { GetServerSideProps } from 'next'
-
-import ReactTooltip from 'react-tooltip'
-
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
@@ -24,9 +21,16 @@ import { useCollection } from '../hooks/useCollection'
 import Post from '../components/Post'
 import PostApi from '../services/api/PostApi'
 import PostsCollection from '../services/collections/PostsCollection'
+import { useGetProfile } from '../hooks/useGetProfile'
+
+import dynamic from 'next/dynamic'
+const ReactTooltip = dynamic(() => import('react-tooltip'), {
+  ssr: false
+})
 
 const Profile: React.FC = () => {
   const { auth } = useAuth()
+  // const { user } = useGetProfile()
 
   const [isHover, setIsHover] = useState(false)
 
@@ -69,7 +73,11 @@ const Profile: React.FC = () => {
             </button>
           </HeaderProfile>
         </Header>
-        <Content>{router?.query.slug}</Content>
+        <Content>
+          {items.map((post) => {
+            return <Post key={post.id} post={post} />
+          })}
+        </Content>
       </Container>
     </DefaultMasterPage>
   )

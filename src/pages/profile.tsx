@@ -9,8 +9,6 @@ import {
 import DefaultMasterPage from '../components/MasterPages/DefaultMasterPage'
 import { GetServerSideProps } from 'next'
 
-import ReactTooltip from 'react-tooltip'
-
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
@@ -22,6 +20,11 @@ import { useCollection } from '../hooks/useCollection'
 import Post from '../components/Post'
 import PostApi from '../services/api/PostApi'
 import PostsCollection from '../services/collections/PostsCollection'
+
+import dynamic from 'next/dynamic'
+const ReactTooltip = dynamic(() => import('react-tooltip'), {
+  ssr: false
+})
 
 const Profile: React.FC = () => {
   const { auth } = useAuth()

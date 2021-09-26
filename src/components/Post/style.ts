@@ -48,3 +48,9 @@ export const Content = styled.div`
     cursor: pointer;
   }
 `
+
+export const Image = styled.img`
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+`

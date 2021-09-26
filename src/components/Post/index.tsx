@@ -1,6 +1,5 @@
-import { Container, Header, Content } from './style'
+import { Container, Header, Content, Image } from './style'
 
-import Image from 'next/image'
 import Route from 'next/router'
 import { useGetProfile } from '../../hooks/useGetProfile'
 import GetProfileEvents from '../../events/GetProfileEvents'
@@ -24,9 +23,6 @@ const Post: React.FC<PostProps> = ({ post }) => {
           onClick={getProfile}
           src={post.user.image ? post.user.image.url : '/assets/profile.jpg'}
           alt="profile"
-          objectFit="cover"
-          width={50}
-          height={50}
         />
         <span onClick={getProfile}>{post.user.username}</span>
       </Header>

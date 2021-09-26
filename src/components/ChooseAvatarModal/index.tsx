@@ -64,7 +64,7 @@ const ChooseAvatarModal: React.FC = () => {
             id="file"
             name="file"
             type="file"
-            accept="image/png, image/jpg"
+            accept="image/png, image/jpg, image/jpeg"
           />
         </ProfileImage>
         <ChooseButtonArea>

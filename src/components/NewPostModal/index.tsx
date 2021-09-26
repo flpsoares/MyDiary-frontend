@@ -9,14 +9,14 @@ import {
   SubmitArea,
   SubHeader,
   SendFile,
-  ImageArea
+  ImageArea,
+  Image
 } from './style'
 
 import { MdClose } from 'react-icons/md'
 import { BsImage } from 'react-icons/bs'
 import ReactTooltip from 'react-tooltip'
 
-import Image from 'next/image'
 import { ChangeEvent, FormEvent, useContext, useRef, useState } from 'react'
 import { ModalContext } from '../../contexts/ModalContext'
 import PostApi from '../../services/api/PostApi'
@@ -75,8 +75,6 @@ const NewPostModal: React.FC = () => {
             <Image
               src={auth.image?.url ? auth.image.url : '/assets/profile.jpg'}
               alt="profile"
-              width={50}
-              height={50}
             />
             <span>{auth.username}</span>
           </Profile>

@@ -131,3 +131,8 @@ export const SubmitButton = styled.button`
     filter: brightness(1.1);
   }
 `
+
+export const Image = styled.img`
+  width: 50px;
+  height: 50px;
+`

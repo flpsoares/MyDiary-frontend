@@ -17,8 +17,6 @@ export const Header: React.FC = () => {
         onClick={goToProfile}
         src={auth?.image ? auth.image.url : '/assets/profile.jpg'}
         alt="profile"
-        width={50}
-        height={50}
       />
     </Container>
   )

@@ -1,6 +1,5 @@
-import { Container } from './style'
+import { Container, Image } from './style'
 
-import Image from 'next/image'
 import Router from 'next/router'
 import { useAuth } from '../../../../hooks/useAuth'
 
